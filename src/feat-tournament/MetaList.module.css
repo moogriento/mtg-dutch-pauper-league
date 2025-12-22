@@ -1,0 +1,36 @@
+.archetype-table {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 2rem 0;
+}
+
+.archetypeName {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.columnStat {
+  font-family: monospace;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.positive {
+  font-family: monospace;
+  font-weight: 600;
+  color: var(--success);
+}
+
+.negative {
+  font-family: monospace;
+  font-weight: 600;
+  color: var(--error);
+}
+
+.neutral {
+  font-family: monospace;
+  font-weight: 600;
+  color: var(--text-secondary);
+}

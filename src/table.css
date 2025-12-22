@@ -1,0 +1,63 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  background: var(--bg-tertiary);
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  transition: background 0.15s ease;
+}
+
+th:hover {
+  background: var(--border);
+}
+
+th.sortable::after {
+  content: '⇅';
+  margin-left: 0.5rem;
+  opacity: 0.3;
+  font-size: 0.85em;
+}
+
+th.sortable:hover::after {
+  opacity: 0.6;
+}
+
+th.sort-asc::after {
+  content: '↑';
+  opacity: 1;
+  color: var(--accent);
+}
+
+th.sort-desc::after {
+  content: '↓';
+  opacity: 1;
+  color: var(--accent);
+}
+
+td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-primary);
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+tbody tr {
+  transition: background 0.15s ease;
+}
+
+tbody tr:hover {
+  background: var(--bg-tertiary);
+}

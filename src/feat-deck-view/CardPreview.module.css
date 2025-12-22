@@ -1,0 +1,8 @@
+.cardPreview {
+  position: absolute;
+  z-index: 10;
+}
+
+.image {
+  width: 200px;
+}

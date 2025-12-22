@@ -1,0 +1,107 @@
+:root {
+  /* Light Mode - Plains/White Mana - WCAG Accessible */
+  --bg-primary: #faf9f0;
+  --bg-secondary: #fffbd5;
+  --bg-tertiary: #f0edd8;
+  --border: #d4c5a9;
+  --text-primary: #2c2416;
+  --text-secondary: #4a3d2a;
+  --text-muted: #6e6150;
+  --accent: #a67c3b;
+  --accent-hover: #8f6a30;
+  --success: #4e7a44;
+  --warning: #b87a2f;
+  --error: #b03d37;
+  --card-shadow: rgba(44, 36, 22, 0.08);
+  --hover-shadow: rgba(166, 124, 59, 0.15);
+
+  /* For light backgrounds (Plains theme) */
+  --chart-1: #2563eb; /* Strong blue */
+  --chart-2: #dc2626; /* Strong red */
+  --chart-3: #059669; /* Strong green */
+  --chart-4: #d97706; /* Amber */
+  --chart-5: #7c3aed; /* Purple */
+  --chart-6: #db2777; /* Pink */
+  --chart-7: #0891b2; /* Teal */
+  --chart-8: #ca8a04; /* Gold */
+  --chart-9: #64748b; /* Slate gray */
+}
+
+:root[data-theme='dark'] {
+  /* Dark Mode - Swamp/Black Mana */
+  --bg-primary: #0a0a0c;
+  --bg-secondary: #16151a;
+  --bg-tertiary: #1f1e24;
+  --border: #2a2830;
+  --text-primary: #e8e6ea;
+  --text-secondary: #b8b5bd;
+  --text-muted: #6e6a75;
+  --accent: #9b87c7;
+  --accent-hover: #b39fd9;
+  --accent-secondary: #7c6ba3;
+  --success: #6b9f5e;
+  --warning: #d4943f;
+  --error: #c85a54;
+  --card-shadow: rgba(0, 0, 0, 0.4);
+  --hover-shadow: rgba(155, 135, 199, 0.2);
+
+  /* For dark backgrounds (Swamp theme) - optional lighter versions */
+  --chart-1: #3b82f6; /* Lighter blue */
+  --chart-2: #ef4444; /* Lighter red */
+  --chart-3: #10b981; /* Lighter green */
+  --chart-4: #f59e0b; /* Lighter amber */
+  --chart-5: #8b5cf6; /* Lighter purple */
+  --chart-6: #ec4899; /* Lighter pink */
+  --chart-7: #06b6d4; /* Lighter teal */
+  --chart-8: #eab308; /* Lighter gold */
+  --chart-9: #94a3b8; /* Lighter slate */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
+  font-variation-settings: 'wdth' 100;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+h1 {
+  font-family: 'Oldenburg', serif;
+  font-size: 2.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 3rem 0 1.5rem 0;
+}
+
+h2 {
+  font-family: 'Oldenburg', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 2.5rem 0 1.25rem 0;
+}
+
+h3 {
+  font-family: 'Oldenburg', serif;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 1rem 0 0.5rem 0;
+}
+
+.max-w-screen {
+  max-width: 64rem;
+}
+
+.container {
+  padding-inline: 1rem;
+  margin-inline: auto;
+}
