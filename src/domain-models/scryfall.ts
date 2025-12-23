@@ -4,6 +4,11 @@ export interface ScryfallListResponse {
   data: ScryfallCard[];
 }
 
+export interface ScryfallCardsResponse {
+  total_cards: number;
+  data: ScryfallCard[];
+}
+
 export interface ScryfallCard {
   id: string;
   name: string;

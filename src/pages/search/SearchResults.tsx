@@ -11,6 +11,7 @@ import { PaginationSearch } from '../../common-ui/PaginationSearch';
 import type { Tournament } from '../../domain-models/tournament';
 import { AppliedFilters, type Filters } from '../../feat-search/AppliedFilters';
 import { getDisplayRange } from '../../helper-pagination/formatter';
+import { NoResults } from '../../feat-search/NoResults';
 
 interface LoaderData {
   decks: DeckSearch[];
@@ -48,9 +49,9 @@ export async function searchResultsLoader({
   const promises = [
     supabase.rpc('get_decks_with_card_info', {
       tournament_id_text: tournament,
-      start_date: startDate,
+      p_start_date: startDate,
       p_archetype: archetype,
-      end_date: endDate,
+      p_end_date: endDate,
       card_name: cardName,
       min_count: cardCount,
       p_limit: PAGE_SIZE,
@@ -111,10 +112,14 @@ export function SearchResults() {
       <H1 className="mb-4">Search results</H1>
 
       <div className="my-2">
-        <span className="text-sm">
-          {start} - {end} of {totalResults} decks sorted by tournament position
-          where:
-        </span>
+        {totalResults === 0 ? (
+          <span className="text-sm">0 decks found where:</span>
+        ) : (
+          <span className="text-sm">
+            {start} - {end} of {totalResults} decks sorted by tournament
+            position where:
+          </span>
+        )}
         <AppliedFilters filters={filters} />
       </div>
 
@@ -125,6 +130,8 @@ export function SearchResults() {
           onPageChange={handlePageChange}
         />
       </div>
+
+      {totalResults === 0 && <NoResults />}
       <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {decks.map((deck) => (
           <li
