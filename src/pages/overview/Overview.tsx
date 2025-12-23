@@ -67,19 +67,21 @@ export function OverviewPage() {
   return (
     <div>
       <section className="text-primary py-12 px-4 md:px-8 rounded-b-lg mt-4">
-        <div className="max-w-4xl mx-auto text-center">
+        <div className="max-w-4xl mx-auto text-center max-w-[600px]">
           <h1 className="text-3xl md:text-5xl font-bold mb-8 font-heading">
-            Dutch Pauper League <br />
-            Meta Overview
+            Dutch Pauper League Meta Overview
           </h1>
           <p className="text-md md:text-lg">
             <span className="italic">A wanna try</span> site to check the meta
-            distribution per tournament leg.
+            distribution per tournament leg. <br />
+            Data comes from topdeck.gg. The formula to calcualte the archtypes
+            might not be 100% reliable, so it's always better to double check
+            with the actual deck content
           </p>
         </div>
       </section>
 
-      <div className="max-w-4xl mx-auto px-4 md:px-8 mt-8">
+      <div className="max-w-4xl mx-auto px-4 md:px-8 mt-8 mb-8">
         <H2 className="mb-4">Past tournaments</H2>
 
         {isLoading && <Skeleton />}
