@@ -48,3 +48,16 @@ export interface DeckDetails extends Deck {
   losses: number;
   draws: number;
 }
+
+export interface DeckSearch extends Deck {
+  standings_position: number;
+  wins: number;
+  losses: number;
+  draws: number;
+  tournament_id: string;
+  tournament_name: string;
+  tournament_start_date: string;
+  card_count: number;
+  card_location: 'mainboard' | 'sideboard' | 'both' | 'none';
+  total_count: number;
+}
