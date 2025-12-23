@@ -6,8 +6,37 @@ import { usePagination } from '../../helper-pagination/usePagination';
 import { H2 } from '../../common-ui/Headings';
 import { Pagination } from '../../common-ui/Pagination';
 
+function Skeleton() {
+  return (
+    <table className="animate-pulse min-w-full border border-border rounded-lg overflow-hidden">
+      <thead className="bg-bg-secondary">
+        <tr>
+          <th className="text-left px-4 py-2 border-b border-border font-medium">
+            Leg
+          </th>
+          <th className="text-left px-4 py-2 border-b border-border font-medium after:content-['↓'] after:ml-2 after:text-xs">
+            Date
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {Array.from({ length: 5 }).map((_, index) => (
+          <tr key={index}>
+            <td className="px-4 py-2 border-b border-border">
+              <div className="h-5 w-80 rounded bg-border/60 dark:bg-border" />
+            </td>
+            <td className="px-4 py-2 border-b border-border">
+              <div className="h-5 w-32 rounded bg-border/60 dark:bg-border" />
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}
+
 export function OverviewPage() {
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['tournaments'],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -52,39 +81,42 @@ export function OverviewPage() {
 
       <div className="max-w-4xl mx-auto px-4 md:px-8 mt-8">
         <H2 className="mb-4">Past tournaments</H2>
-        <table className="min-w-full border border-border rounded-lg overflow-hidden">
-          <thead className="bg-bg-secondary">
-            <tr>
-              <th className="text-left px-4 py-2 border-b border-border">
-                Leg
-              </th>
-              <th className="text-left px-4 py-2 border-b border-border">
-                Date
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {items.map((tournament) => (
-              <tr
-                key={tournament.id}
-                className="hover:bg-bg-tertiary transition text-sm"
-              >
-                <td className="px-4 py-2 border-b border-border">
-                  <Link
-                    className="hover:underline"
-                    to={`/tournament/${tournament.id}`}
-                  >
-                    {tournament.name}
-                  </Link>
-                </td>
-                <td className="px-4 py-2 border-b border-border">
-                  {new Date(tournament.created_at).toLocaleDateString()}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
 
+        {isLoading && <Skeleton />}
+        {!isLoading && (
+          <table className="min-w-full border border-border rounded-lg overflow-hidden">
+            <thead className="bg-bg-secondary">
+              <tr>
+                <th className="text-left px-4 py-2 border-b border-border font-medium">
+                  Leg
+                </th>
+                <th className="text-left px-4 py-2 border-b border-border font-medium after:content-['↓'] after:ml-2 after:text-xs">
+                  Date
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {items.map((tournament) => (
+                <tr
+                  key={tournament.id}
+                  className="hover:bg-bg-tertiary transition text-sm"
+                >
+                  <td className="px-4 py-2 border-b border-border">
+                    <Link
+                      className="hover:underline"
+                      to={`/tournament/${tournament.id}`}
+                    >
+                      {tournament.name}
+                    </Link>
+                  </td>
+                  <td className="px-4 py-2 border-b border-border">
+                    {new Date(tournament.created_at).toLocaleDateString()}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
         {totalPages > 1 && (
           <Pagination
             onNext={nextPage}
