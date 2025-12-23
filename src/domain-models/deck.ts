@@ -38,3 +38,13 @@ export interface ViewableDeck {
   mainboard: Record<CardType, EnrichedCard[]>;
   sideboard: EnrichedCard[];
 }
+
+export interface DeckDetails extends Deck {
+  tournament_id: string;
+  tournament_name: string;
+  tournament_start_date: string;
+  position: number;
+  wins: number;
+  losses: number;
+  draws: number;
+}

@@ -1,30 +1,12 @@
 import { useQuery } from '../helper-query/useQuery';
-import { supabase } from '../helper-api/supabase';
 import type { Deck, EnrichedCard, ViewableDeck } from '../domain-models/deck';
 import { fetchCardsByDeck } from '../helper-api/scryfall';
 
-export function useGetCards(deckId: number) {
+export function useGetCards(data: Deck) {
   return useQuery({
-    queryKey: ['deck-details', deckId],
+    queryKey: ['deck-details', data.id],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from('deck')
-        .select(
-          `
-            archetype,
-            decklist,
-            deck_obj,
-            player_id
-            `
-        )
-        .eq('id', deckId)
-        .single();
-
-      if (error) {
-        throw error;
-      }
-
-      const deck = (data as Deck).deck_obj;
+      const deck = data.deck_obj;
 
       // curate deck obj:
       // From namre curate //

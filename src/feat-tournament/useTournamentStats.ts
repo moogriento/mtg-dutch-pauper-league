@@ -1,4 +1,3 @@
-import type { Tournament } from '../domain-models/tournament';
 import { supabase } from '../helper-api/supabase';
 import { useQuery } from '../helper-query/useQuery';
 
@@ -24,8 +23,7 @@ export function useTournamentStats(tournamentId: string) {
   const { data, isLoading } = useQuery({
     queryKey: ['tournament-stats', tournamentId],
     queryFn: async () => {
-      const [tournament, allDecks, top8] = await Promise.all([
-        supabase.from('tournament').select().eq('id', tournamentId).single(),
+      const [allDecks, top8] = await Promise.all([
         supabase.rpc('get_archetype_stats', {
           tournament_id_text: tournamentId,
         }),
@@ -35,12 +33,11 @@ export function useTournamentStats(tournamentId: string) {
         }),
       ]);
 
-      if (tournament.error || allDecks.error || top8.error) {
-        throw tournament.error || allDecks.error || top8.error;
+      if (allDecks.error || top8.error) {
+        throw allDecks.error || top8.error;
       }
 
       return {
-        tournament: tournament.data as Tournament,
         allDecks: allDecks.data as ArchetypeStats[],
         top8: top8.data as ArchetypeStats[],
       };
@@ -97,7 +94,6 @@ export function useTournamentStats(tournamentId: string) {
 
   return {
     data: {
-      tournament: data?.tournament,
       stats,
     },
     isLoading,

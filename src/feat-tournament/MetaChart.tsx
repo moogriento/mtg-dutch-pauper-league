@@ -26,9 +26,10 @@ const topDivider = 8;
 interface Props {
   archetypes: ArchetypeStats[];
   totalDecks: number;
+  loading?: boolean;
 }
 
-export function MetaChart({ archetypes, totalDecks }: Props) {
+export function MetaChart({ archetypes, totalDecks, loading }: Props) {
   const topArchetypes = archetypes.slice(0, topDivider);
   const others = archetypes.slice(topDivider);
 
@@ -45,6 +46,22 @@ export function MetaChart({ archetypes, totalDecks }: Props) {
     value: othersTotal / totalDecks,
     color: chartColors[topDivider],
   });
+
+  if (loading) {
+    return (
+      <div className="animate-pulse">
+        <div className="mb-4 mx-auto rounded-full w-[250px] h-[250px] bg-border/60 dark:bg-border" />
+        <div>
+          {Array.from({ length: 5 }).map((_, index) => (
+            <div key={index} className="inline-flex items-center mr-4 text-sm">
+              <div className="w-[14px] h-[14px] rounded-full inline-block mr-1 bg-border/60 dark:bg-border" />
+              <div className="w-36 h-5 bg-border/60 dark:bg-border rounded" />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return <PieChart data={chartData} size={250} />;
 }

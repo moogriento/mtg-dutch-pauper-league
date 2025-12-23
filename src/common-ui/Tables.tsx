@@ -88,8 +88,8 @@ function CleanTh(
     sortOrder?: 'asc' | 'desc';
   }
 ) {
-  const { sortOrder, sortable, ...rest } = props;
-  const className = clsx(
+  const { className, sortOrder, sortable, ...rest } = props;
+  const css = clsx(
     'hover:bg-border px-[1rem] py-[0.75rem] text-left font-medium text-text-primary text-sm border-b border-border relative',
     {
       'cursor-pointer': sortable,
@@ -103,10 +103,11 @@ function CleanTh(
       "after:content-['↓']": sortOrder === 'desc',
       'after:opacity-100': !!sortOrder,
       'after:text-accent': !!sortOrder,
-    }
+    },
+    className
   );
 
-  return <th className={className} {...rest} />;
+  return <th className={css} {...rest} />;
 }
 
 function CleanTd(

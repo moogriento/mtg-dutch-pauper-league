@@ -15,7 +15,6 @@ export function usePagination<T>({
   const items = list.slice(start, end);
 
   const handleNextPage = useCallback(() => {
-    console.log('next page');
     setCurrentPage((prev) => {
       if (prev >= totalPages) {
         return totalPages;

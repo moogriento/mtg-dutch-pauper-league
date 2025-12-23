@@ -1,4 +1,16 @@
+import clsx from 'clsx';
 import type { TournamentStats } from './useTournamentStats';
+
+function Skeleton({ className }: { className?: string }) {
+  return (
+    <div
+      className={clsx(
+        'animate-pulse h-9 w-10 rounded bg-border/60 dark:bg-border',
+        className
+      )}
+    />
+  );
+}
 
 function StatCard({
   label,
@@ -25,19 +37,39 @@ function StatCard({
   );
 }
 
-export function TournamentScorecards({ stats }: { stats: TournamentStats }) {
+export function TournamentScorecards({
+  stats,
+  loading,
+}: {
+  stats: TournamentStats;
+  loading?: boolean;
+}) {
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 my-8">
-      <StatCard label="Total decks" value={stats.totalDecks} />
-      <StatCard label="Unique archetypes" value={stats.totalUniqueArchetypes} />
+      <StatCard
+        label="Total decks"
+        value={loading ? <Skeleton /> : stats.totalDecks}
+      />
+      <StatCard
+        label="Unique archetypes"
+        value={loading ? <Skeleton /> : stats.totalUniqueArchetypes}
+      />
       <StatCard
         label="Most played"
-        value={stats.mostPlayedArchetype}
+        value={
+          loading ? <Skeleton className="w-36" /> : stats.mostPlayedArchetype
+        }
         smallLabel
       />
       <StatCard
         label="Best conversion"
-        value={stats.bestConvertingArchetype}
+        value={
+          loading ? (
+            <Skeleton className="w-36" />
+          ) : (
+            stats.bestConvertingArchetype
+          )
+        }
         smallLabel
       />
     </div>

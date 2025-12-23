@@ -113,6 +113,8 @@
   --font-logo: var(--font-logo);
 }
 
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 body {
   background: var(--bg-primary);
   color: var(--text-primary);

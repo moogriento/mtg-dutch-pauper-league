@@ -1,65 +1,137 @@
-import { useParams, Link } from 'react-router';
+import { Link, type LoaderFunctionArgs, useLoaderData } from 'react-router';
 import { useGetCards } from '../../feat-deck-view/useGetCards';
 import { CardList } from '../../feat-deck-view/CardList';
 import { usePageTitle } from '../../helper-page/usePageTitle';
 import { H1 } from '../../common-ui/Headings';
+import { supabase } from '../../helper-api/supabase';
+import type { DeckDetails } from '../../domain-models/deck';
+import { CardListSkeleton } from '../../feat-deck-view/CardListSkeleton';
+
+export async function viewDeckLoader({ params }: LoaderFunctionArgs) {
+  const { tournamentId, deckId } = params;
+
+  if (!tournamentId || !deckId) {
+    throw new Response('Not Found', { status: 404 });
+  }
+
+  const { data, error } = await supabase
+    .from('deck')
+    .select(
+      `
+    id,
+    archetype,
+    decklist,
+    deck_obj,
+    ...standings!inner(
+      wins,
+      losses,
+      draws,
+      position,
+      ...tournament!inner(
+        tournament_id:id,
+        tournament_name:name,
+        tournament_start_date:start_date
+      )
+    )
+    `
+    )
+    .eq('id', deckId)
+    .single();
+
+  if (error || !data) {
+    throw new Response('Not Found', { status: 404 });
+  }
+
+  return { deck: data as DeckDetails };
+}
 
 export function ViewDeckPage() {
-  const { deckId } = useParams<{ deckId: string }>();
-
-  const { data, isLoading } = useGetCards(Number(deckId));
-
-  usePageTitle(`Deck details`);
-
-  if (isLoading) {
-    return <div>Loading deck details...</div>;
-  }
-
-  if (!data) {
-    return <div>Deck not found.</div>;
-  }
+  const { deck } = useLoaderData<{ deck: DeckDetails }>();
+  usePageTitle(`Deck details - ${deck.id}`);
+  const { data: viewableCards, isLoading } = useGetCards(deck);
 
   return (
     <div className="mt-8">
       <div className="mb-4">
-        <Link
-          to={-1 as any}
-          className="inline-flex items-center gap-2 text-sm text-text-secondary hover:text-text-primary"
-        >
-          ← Back
-        </Link>
+        <nav className="text-sm md:flex">
+          <div className="hidden md:block mr-8">
+            <Link
+              to={-1 as any}
+              className="inline-flex items-center gap-1 text-text-secondary hover:text-text-primary"
+            >
+              ← Back
+            </Link>
+          </div>
 
-        <nav className="text-sm text-text-secondary" aria-label="Breadcrumb">
-          <ol className="inline-flex items-center space-x-1 md:space-x-2">
-            <li>
+          <div className="sm:hidden">
+            <Link
+              to={`/tournament/${deck.tournament_id}`}
+              className="inline-flex items-center gap-1 text-text-secondary hover:text-text-primary"
+            >
+              ← {deck.tournament_name}
+            </Link>
+          </div>
+
+          <ol className="flex flex-wrap items-center gap-1 md:gap-2">
+            <li className="flex items-center gap-1">
               <Link
-                to="/tournaments"
+                to="/"
                 className="hover:text-text-primary transition-colors"
               >
                 Tournaments
               </Link>
-              <span className="mx-1">/</span>
+              <span className="hidden sm:inline">/</span>
             </li>
 
-            <li>
+            <li className="flex items-center gap-1 min-w-0">
               <Link
-                to={`/tournaments/1`}
-                className="hover:text-text-primary transition-colors"
+                to={`/tournament/${deck.tournament_id}`}
+                className="hover:text-text-primary transition-colors truncate max-w-[12rem] sm:max-w-none"
+                title={deck.tournament_name}
               >
-                Pauper 123
+                {deck.tournament_name}
               </Link>
-              <span className="mx-1">/</span>
+              <span className="hidden sm:inline">/</span>
             </li>
 
-            <li className="text-text-primary font-semibold">2522</li>
+            <li
+              className="font-semibold text-text-primary truncate max-w-[8rem] sm:max-w-none"
+              title={String(deck.id)}
+              aria-current="page"
+            >
+              {deck.id}
+            </li>
           </ol>
         </nav>
       </div>
       <H1 className="mb-4">Deck Details</H1>
-      <p>Position: #12 Record: 1-1-1</p>
+
+      <dl className="grid grid-cols-1 sm:grid-cols-[max-content_1fr] gap-x-6 gap-y-1 mb-8">
+        <dt className="text-sm font-medium text-text-muted">Tournament</dt>
+        <dd className="text-sm text-text-primary">{deck.tournament_name}</dd>
+
+        <dt className="text-sm font-medium text-text-muted">Date</dt>
+        <dd className="text-sm text-text-primary">
+          {new Date(deck.tournament_start_date).toLocaleDateString()}
+        </dd>
+
+        <dt className="text-sm font-medium text-text-muted">Archetype</dt>
+        <dd className="text-sm text-text-primary">{deck.archetype}</dd>
+
+        <dt className="text-sm font-medium text-text-muted">Position</dt>
+        <dd className="text-sm text-text-primary">#{deck.position}</dd>
+
+        <dt className="text-sm font-medium text-text-muted">Record</dt>
+        <dd className="text-sm text-text-primary">
+          {deck.wins} wins - {deck.losses} losses - {deck.draws} draws
+        </dd>
+      </dl>
 
       <div>
-        <CardList viewableDeck={data} />
+        {isLoading && <CardListSkeleton />}
+        {!isLoading && viewableCards && (
+          <CardList viewableDeck={viewableCards} />
+        )}
       </div>
     </div>
   );

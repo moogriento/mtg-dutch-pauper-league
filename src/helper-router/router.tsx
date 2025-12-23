@@ -13,6 +13,7 @@ export const router = createBrowserRouter([
         lazy: () =>
           import('../pages/tournament/TournamentDetails').then((module) => ({
             Component: module.TournamentDetailsPage,
+            loader: module.tournamentPageLoader,
           })),
       },
       {
@@ -20,6 +21,7 @@ export const router = createBrowserRouter([
         lazy: () =>
           import('../pages/deck/ViewDeckPage').then((module) => ({
             Component: module.ViewDeckPage,
+            loader: module.viewDeckLoader,
           })),
       },
     ],

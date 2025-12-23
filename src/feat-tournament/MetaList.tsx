@@ -7,7 +7,13 @@ import { Pagination } from '../common-ui/Pagination';
 
 type SortKey = 'total' | 'winrate' | 'conversionrate';
 
-export function MetaList({ archetypes }: { archetypes: ArchetypeStats[] }) {
+export function MetaList({
+  archetypes,
+  loading,
+}: {
+  archetypes: ArchetypeStats[];
+  loading?: boolean;
+}) {
   const [list, setList] = useState(archetypes);
   const [sortKey, setSortKey] = useState<SortKey>('total');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
@@ -21,7 +27,7 @@ export function MetaList({ archetypes }: { archetypes: ArchetypeStats[] }) {
     goToPage,
     hasNextPage,
     hasPrevPage,
-  } = usePagination({ list, pageSize: 10 });
+  } = usePagination({ list: archetypes, pageSize: 10 });
 
   const handleSort = (key: SortKey) => () => {
     let sortedList = [...list];
@@ -67,69 +73,76 @@ export function MetaList({ archetypes }: { archetypes: ArchetypeStats[] }) {
 
   return (
     <div>
-      <TableSolid>
-        <TableSolid.Thead>
-          <TableSolid.Tr>
-            <TableSolid.Th>Archetype</TableSolid.Th>
-            <TableSolid.Th
-              sortable
-              sortOrder={getSortClass('total')}
-              onClick={handleSort('total')}
-            >
-              Total decks
-            </TableSolid.Th>
-            <TableSolid.Th
-              sortable
-              sortOrder={getSortClass('winrate')}
-              onClick={handleSort('winrate')}
-            >
-              Win Rate
-            </TableSolid.Th>
-            <TableSolid.Th
-              sortable
-              sortOrder={getSortClass('conversionrate')}
-              onClick={handleSort('conversionrate')}
-            >
-              Conversion Rate
-            </TableSolid.Th>
-          </TableSolid.Tr>
-        </TableSolid.Thead>
-        <TableSolid.Tbody>
-          {items.map((item) => {
-            const winRate = item.win_rate ?? 0;
-            const conversionRate = item.conversion_rate ?? 0;
+      <div
+        className={clsx({
+          'min-h-[408px]': totalPages > 1,
+        })}
+      >
+        <TableSolid>
+          <TableSolid.Thead>
+            <TableSolid.Tr>
+              <TableSolid.Th>Archetype</TableSolid.Th>
+              <TableSolid.Th
+                sortable
+                sortOrder={getSortClass('total')}
+                onClick={handleSort('total')}
+              >
+                Total decks
+              </TableSolid.Th>
+              <TableSolid.Th
+                sortable
+                sortOrder={getSortClass('winrate')}
+                onClick={handleSort('winrate')}
+              >
+                Win Rate
+              </TableSolid.Th>
+              <TableSolid.Th
+                sortable
+                sortOrder={getSortClass('conversionrate')}
+                onClick={handleSort('conversionrate')}
+              >
+                Conversion Rate
+              </TableSolid.Th>
+            </TableSolid.Tr>
+          </TableSolid.Thead>
+          <TableSolid.Tbody>
+            {items.map((item) => {
+              const winRate = item.win_rate ?? 0;
+              const conversionRate = item.conversion_rate ?? 0;
 
-            return (
-              <TableSolid.Tr key={item.archetype}>
-                <TableSolid.Td className="text-text-primary">
-                  {item.archetype}
-                </TableSolid.Td>
-                <TableSolid.Td className="font-mono text-text-secondary">
-                  {item.total_decks}
-                </TableSolid.Td>
-                <TableSolid.Td
-                  className={clsx('font-mono font-semibold', {
-                    'text-success': winRate >= 51,
-                    'text-neutral': winRate >= 50 && winRate < 51,
-                    'text-error': winRate < 50,
-                  })}
-                >
-                  {item.win_rate?.toFixed(1)}%
-                </TableSolid.Td>
-                <TableSolid.Td
-                  className={clsx('font-mono font-semibold', {
-                    'text-success': conversionRate >= 51,
-                    'text-neutral': conversionRate >= 50 && conversionRate < 51,
-                    'text-error': conversionRate < 50,
-                  })}
-                >
-                  {item.conversion_rate?.toFixed(1)}%
-                </TableSolid.Td>
-              </TableSolid.Tr>
-            );
-          })}
-        </TableSolid.Tbody>
-      </TableSolid>
+              return (
+                <TableSolid.Tr key={item.archetype}>
+                  <TableSolid.Td className="text-text-primary">
+                    {item.archetype}
+                  </TableSolid.Td>
+                  <TableSolid.Td className="font-mono text-text-secondary">
+                    {item.total_decks}
+                  </TableSolid.Td>
+                  <TableSolid.Td
+                    className={clsx('font-mono font-semibold', {
+                      'text-success': winRate >= 51,
+                      'text-neutral': winRate >= 50 && winRate < 51,
+                      'text-error': winRate < 50,
+                    })}
+                  >
+                    {item.win_rate?.toFixed(1)}%
+                  </TableSolid.Td>
+                  <TableSolid.Td
+                    className={clsx('font-mono font-semibold', {
+                      'text-success': conversionRate >= 51,
+                      'text-neutral':
+                        conversionRate >= 50 && conversionRate < 51,
+                      'text-error': conversionRate < 50,
+                    })}
+                  >
+                    {item.conversion_rate?.toFixed(1)}%
+                  </TableSolid.Td>
+                </TableSolid.Tr>
+              );
+            })}
+          </TableSolid.Tbody>
+        </TableSolid>
+      </div>
 
       {totalPages > 1 && (
         <Pagination

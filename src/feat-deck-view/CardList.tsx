@@ -28,7 +28,7 @@ function Section({
 
   return (
     <>
-      <tr className="">
+      <tr className="break-after-avoid">
         <th className="font-semibold text-left p-1 text-sm" colSpan={2}>
           {title} ({total})
         </th>
