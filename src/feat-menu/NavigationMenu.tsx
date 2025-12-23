@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { SwitchTheme } from '../feat-switch-theme/SwitchTheme';
 import { NavLinks } from './NavLinks';
 import clsx from 'clsx';
+import { Link } from 'react-router';
 
 function Version({ className }: { className?: string }) {
   return (
@@ -26,7 +27,7 @@ export function Navbar() {
                 <img src="/pepe-logo.png" className="w-8" />
               </div>
             </div>
-            DPL meta
+            <Link to="/">DPL meta</Link>
             <Version className="hidden md:inline ml-2" />
           </div>
 
