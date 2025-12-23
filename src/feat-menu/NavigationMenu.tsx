@@ -24,7 +24,10 @@ export function Navbar() {
           <div className="text-2xl text-text-primary flex items-center font-logo">
             <div className="rounded-full shadow-xl size-8 flex items-center justify-center mr-2">
               <div className="rounded-full overflow-hidden size-8 flex items-center justify-center bg-white">
-                <img src="/pepe-logo.png" className="w-8" />
+                <img
+                  src={`${import.meta.env.VITE_BASE_URL}/pepe-logo.png`}
+                  className="w-8"
+                />
               </div>
             </div>
             <Link to="/">DPL meta</Link>
