@@ -9,7 +9,6 @@ type SortKey = 'total' | 'winrate' | 'conversionrate';
 
 export function MetaList({
   archetypes,
-  loading,
 }: {
   archetypes: ArchetypeStats[];
   loading?: boolean;

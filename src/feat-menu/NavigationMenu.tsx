@@ -74,7 +74,7 @@ export function Navbar() {
 
         <div className="flex flex-col gap-4 px-4 py-6">
           <SwitchTheme />
-          <NavLinks mobile />
+          <NavLinks />
         </div>
       </aside>
     </>

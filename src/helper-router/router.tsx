@@ -34,6 +34,21 @@ export const router = createBrowserRouter([
                 loader: module.viewDeckLoader,
               })),
           },
+          {
+            path: 'advanced',
+            lazy: () =>
+              import('../pages/search/SearchPage').then((module) => ({
+                Component: module.SearchPage,
+              })),
+          },
+          {
+            path: 'search',
+            lazy: () =>
+              import('../pages/search/SearchResults').then((module) => ({
+                Component: module.SearchResults,
+                loader: module.searchResultsLoader,
+              })),
+          },
         ],
       },
       {
