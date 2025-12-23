@@ -43,7 +43,7 @@
   --chart-9: #64748b;
 }
 :root[data-theme='dark'] {
-  --bg-primary: #0a0a0c;
+  --bg-primary: oklch(21.6% 0.006 56.043);
   --bg-secondary: #16151a;
   --bg-tertiary: #1f1e24;
 
