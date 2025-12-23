@@ -1,22 +1,15 @@
-import { Outlet, Link } from 'react-router';
-import { SwitchTheme } from '../feat-switch-theme/SwitchTheme';
+import { Outlet } from 'react-router';
+import { Navbar } from '../feat-menu/NavigationMenu';
+import { Footer } from '../feat-menu/Footer';
 
 export function RootLayout() {
   return (
     <>
-      <header
-        className="container max-w-screen"
-        style={{ padding: 12, borderBottom: '1px solid #eee' }}
-      >
-        <nav>
-          <Link to="/">Overview</Link>
-        </nav>
-
-        <SwitchTheme />
-      </header>
-      <main className="container max-w-screen" style={{ padding: 12 }}>
+      <Navbar />
+      <main className="mx-auto max-w-5xl px-2 md:px-4">
         <Outlet />
       </main>
+      <Footer />
     </>
   );
 }

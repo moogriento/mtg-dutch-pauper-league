@@ -1,37 +1,41 @@
 import type { EnrichedCard } from '../domain-models/deck';
-import styles from './CardPreview.module.css';
 
 export function CardPreview({
   card,
-  onDismiss,
+  rect,
 }: {
   card: EnrichedCard;
-  onDismiss: () => void;
+  rect: DOMRect;
 }) {
+  const left = rect.left + 64;
+  const top = Math.min(
+    rect.top,
+    window.innerHeight - 350 // card height
+  );
+
   const isDualSide = card.cardData.card_faces?.length > 0;
 
   return (
     <div
-      className={styles.cardPreview}
-      onMouseOut={onDismiss}
-      onPointerDown={onDismiss}
+      className="fixed z-10 pointer-events-none min-h-[350px] overflow-hidden rounded-xl border"
+      style={{ top, left }}
     >
       {isDualSide ? (
-        <>
+        <div className="flex ">
           <img
-            className={styles.image}
+            className="md:w-[250px]"
             src={card.cardData.card_faces[0].image_uris.normal}
             alt={card.name}
           />
           <img
-            className={styles.image}
+            className="w-[250px]"
             src={card.cardData.card_faces[1].image_uris.normal}
             alt={card.name}
           />
-        </>
+        </div>
       ) : (
         <img
-          className={styles.image}
+          className="w-[250px]"
           src={card.cardData.image_uris?.normal}
           alt={card.name}
         />

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import styles from './SwitchTheme.module.css';
+import { Swamp } from './Swamp';
+import { Plains } from './Plains';
 
 function getInitialTheme() {
   const savedTheme = localStorage.getItem('theme');
@@ -26,38 +27,28 @@ export function SwitchTheme() {
     setTheme(newTheme);
   };
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
-      handleChange();
-    }
-  };
-
   return (
-    <div
-      className={styles['theme-toggle']}
+    <button
       onClick={handleChange}
-      role="switch"
-      aria-checked={theme === 'dark'}
-      tabIndex={0}
-      onKeyDown={handleKeyDown}
+      className="relative w-14 h-7 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+      style={{ backgroundColor: theme === 'dark' ? '#334155' : '#e2e8f0' }}
+      aria-label="Toggle theme"
     >
-      <span className={styles.sun} aria-hidden="true">
-        ☀️
-      </span>
-      <div
-        className={`${styles.switch} ${
-          theme === 'dark' ? styles.switchActive : ''
+      <span
+        className={`absolute top-0.5 left-0.5 w-6 h-6 rounded-full bg-white shadow-md transform transition-transform duration-300 flex items-center justify-center ${
+          theme === 'dark' ? 'translate-x-7' : 'translate-x-0'
         }`}
       >
-        <div className={styles['switch-toggle']}></div>
-        <span className={styles['sr-only']}>
-          {theme === 'light' ? 'Light mode' : 'Dark mode'}
-        </span>
-      </div>
-      <span className={styles.moon} aria-hidden="true">
-        🌙
+        {theme === 'dark' ? (
+          <div className="rounded-full shadow-xl shadow-stone-200/50 p-1 bg-stone-200">
+            <Swamp className="size-[14px]" />
+          </div>
+        ) : (
+          <div className="rounded-full shadow-xl p-1 bg-yellow-200">
+            <Plains className="size-[14px]" />
+          </div>
+        )}
       </span>
-    </div>
+    </button>
   );
 }

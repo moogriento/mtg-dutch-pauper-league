@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 export function usePagination<T>({
   list,
@@ -35,6 +35,10 @@ export function usePagination<T>({
     });
   }, []);
 
+  const handleGoToPage = useCallback((pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  }, []);
+
   return {
     totalItems: list.length,
     totalPages: totalPages,
@@ -42,6 +46,7 @@ export function usePagination<T>({
     currentPage,
     nextPage: handleNextPage,
     previousPage: handlePreviousPage,
+    goToPage: handleGoToPage,
     hasNextPage: currentPage < totalPages,
     hasPrevPage: currentPage > 1,
   };

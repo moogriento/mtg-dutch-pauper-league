@@ -1,0 +1,120 @@
+@import 'tailwindcss';
+
+:root {
+  --font-heading: 'Oldenburg', serif;
+  --font-content: 'Instrument Sans', -apple-system, BlinkMacSystemFont,
+    sans-serif;
+  --font-logo: 'BBH Bogle', sans-serif;
+
+  /* Backgrounds */
+  --bg-primary: #fff;
+  --bg-secondary: #fffbd5;
+  --bg-tertiary: #f0edd8;
+
+  /* Text */
+  --text-primary: #2c2416;
+  --text-secondary: #4a3d2a;
+  --text-muted: #6e6150;
+
+  /* UI */
+  --navbar: #faf9f0;
+  --border: #d4c5a9;
+  --accent: #a67c3b;
+  --accent-hover: #8f6a30;
+
+  /* Status */
+  --success: #4e7a44;
+  --warning: #b87a2f;
+  --error: #b03d37;
+
+  /* Effects */
+  --card-shadow: rgba(44, 36, 22, 0.08);
+  --hover-shadow: rgba(166, 124, 59, 0.15);
+
+  /* Charts */
+  --chart-1: #2563eb;
+  --chart-2: #dc2626;
+  --chart-3: #059669;
+  --chart-4: #d97706;
+  --chart-5: #7c3aed;
+  --chart-6: #db2777;
+  --chart-7: #0891b2;
+  --chart-8: #ca8a04;
+  --chart-9: #64748b;
+}
+:root[data-theme='dark'] {
+  --bg-primary: #0a0a0c;
+  --bg-secondary: #16151a;
+  --bg-tertiary: #1f1e24;
+
+  --text-primary: #e8e6ea;
+  --text-secondary: #b8b5bd;
+  --text-muted: #6e6a75;
+
+  --navbar: #0a0a0c;
+  --border: #2a2830;
+  --accent: #9b87c7;
+  --accent-hover: #b39fd9;
+
+  --success: #6b9f5e;
+  --warning: #d4943f;
+  --error: #c85a54;
+
+  --card-shadow: rgba(0, 0, 0, 0.4);
+  --hover-shadow: rgba(155, 135, 199, 0.2);
+
+  --chart-1: #3b82f6;
+  --chart-2: #ef4444;
+  --chart-3: #10b981;
+  --chart-4: #f59e0b;
+  --chart-5: #8b5cf6;
+  --chart-6: #ec4899;
+  --chart-7: #06b6d4;
+  --chart-8: #eab308;
+  --chart-9: #94a3b8;
+}
+
+/* 1. Define theme tokens */
+@theme {
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-tertiary: var(--bg-tertiary);
+  --color-bg-navbar: var(--navbar);
+
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+
+  --color-border: var(--border);
+
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-chart-6: var(--chart-6);
+  --color-chart-7: var(--chart-7);
+  --color-chart-8: var(--chart-8);
+  --color-chart-9: var(--chart-9);
+
+  --shadow-card: 0 4px 12px var(--card-shadow);
+  --shadow-hover: 0 6px 18px var(--hover-shadow);
+
+  --font-heading: var(--font-heading);
+  --font-sans: var(--font-content);
+  --font-mono: monospace;
+  --font-logo: var(--font-logo);
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-content);
+}

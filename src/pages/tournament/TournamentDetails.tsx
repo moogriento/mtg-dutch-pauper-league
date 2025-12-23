@@ -5,6 +5,7 @@ import { MetaChart } from '../../feat-tournament/MetaChart';
 import { useTournamentStats } from '../../feat-tournament/useTournamentStats';
 import { MetaList } from '../../feat-tournament/MetaList';
 import { usePageTitle } from '../../helper-page/usePageTitle';
+import { H1, H2 } from '../../common-ui/Headings';
 
 export function TournamentDetailsPage() {
   const { tournamentId } = useParams<{ tournamentId: string }>();
@@ -23,15 +24,18 @@ export function TournamentDetailsPage() {
   }
 
   return (
-    <div>
-      <h1 className="title">{tournament.name}</h1>
-      <p>Date: {new Date(tournament.start_date).toLocaleDateString()}</p>
+    <div className="mt-8">
+      <H1>{tournament.name}</H1>
+      <p>Played on: {new Date(tournament.start_date).toLocaleDateString()}</p>
       <TournamentScorecards stats={data.stats} />
-      <h2 className="subtitle">Metagame Overview</h2>
-      <MetaChart
-        totalDecks={data.stats.totalDecks}
-        archetypes={data.stats.archetypes}
-      />
+      <H2 className="mb-8">Metagame Overview</H2>
+      <div className="mb-8">
+        <MetaChart
+          totalDecks={data.stats.totalDecks}
+          archetypes={data.stats.archetypes}
+        />
+      </div>
+
       <MetaList archetypes={data.stats.archetypes} />
       <Standings tournamentId={tournamentId!} />
     </div>

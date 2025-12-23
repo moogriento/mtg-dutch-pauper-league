@@ -1,8 +1,8 @@
 import { Link } from 'react-router';
 import { supabase } from '../helper-api/supabase';
 import { useQuery } from '../helper-query/useQuery';
-import styles from './Standings.module.css';
-import { usePagination } from '../helper-pagination/usePagination';
+import { H2 } from '../common-ui/Headings';
+import { TableClean } from '../common-ui/Tables';
 
 export function Standings({ tournamentId }: { tournamentId: string }) {
   const { data } = useQuery({
@@ -36,60 +36,42 @@ export function Standings({ tournamentId }: { tournamentId: string }) {
     },
   });
 
-  const {
-    items,
-    currentPage,
-    totalPages,
-    nextPage,
-    previousPage,
-    hasNextPage,
-    hasPrevPage,
-  } = usePagination({ list: data ?? [], pageSize: 20 });
-
   return (
-    <div>
-      <div className={styles['standings-table']}>
-        <h2 className="subtitle">Standings</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Archetype</th>
-              <th>Wins</th>
-              <th>Losses</th>
-              <th>Draws</th>
-              <th>View Deck</th>
-            </tr>
-          </thead>
-          <tbody>
-            {items.map((standing) => (
-              <tr key={standing.deck_id}>
-                <td>{standing.position}</td>
-                <td>{standing.archetype}</td>
-                <td>{standing.wins}</td>
-                <td>{standing.losses}</td>
-                <td>{standing.draws}</td>
-                <td>
-                  <Link
-                    to={`/tournament/${tournamentId}/deck/${standing.deck_id}`}
-                  >
-                    View deck
-                  </Link>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div>
-        <button onClick={previousPage} disabled={!hasPrevPage}>
-          Prev
-        </button>
-        Page {currentPage} of {totalPages}
-        <button onClick={nextPage} disabled={!hasNextPage}>
-          Next
-        </button>
-      </div>
+    <div className="mt-8 mb-4">
+      <H2>Standings</H2>
+      <TableClean>
+        <TableClean.Thead>
+          <TableClean.Tr>
+            <TableClean.Th>#</TableClean.Th>
+            <TableClean.Th>Archetype</TableClean.Th>
+            <TableClean.Th>Wins</TableClean.Th>
+            <TableClean.Th>Losses</TableClean.Th>
+            <TableClean.Th>Draws</TableClean.Th>
+            <TableClean.Th>View Deck</TableClean.Th>
+          </TableClean.Tr>
+        </TableClean.Thead>
+        <TableClean.Tbody>
+          {data?.map((standing) => (
+            <TableClean.Tr key={standing.deck_id}>
+              <TableClean.Td className="text-right w-[56px]">
+                {standing.position}
+              </TableClean.Td>
+              <TableClean.Td>{standing.archetype}</TableClean.Td>
+              <TableClean.Td>{standing.wins}</TableClean.Td>
+              <TableClean.Td>{standing.losses}</TableClean.Td>
+              <TableClean.Td>{standing.draws}</TableClean.Td>
+              <TableClean.Td>
+                <Link
+                  className="underline"
+                  to={`/tournament/${tournamentId}/deck/${standing.deck_id}`}
+                >
+                  View deck
+                </Link>
+              </TableClean.Td>
+            </TableClean.Tr>
+          ))}
+        </TableClean.Tbody>
+      </TableClean>
     </div>
   );
 }
