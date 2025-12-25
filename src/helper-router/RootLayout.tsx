@@ -1,7 +1,7 @@
 import { Outlet, ScrollRestoration, useNavigation } from 'react-router';
-import { Navbar } from '../feat-menu/NavigationMenu';
-import { Footer } from '../feat-menu/Footer';
-import { LoadingBar } from '../helper-page/LoadingBar';
+import { Navbar } from '../feat-navigation/NavigationMenu';
+import { Footer } from '../feat-navigation/Footer';
+import { LoadingBar } from '../feat-navigation/LoadingBar';
 
 export function RootLayout() {
   const navigation = useNavigation();

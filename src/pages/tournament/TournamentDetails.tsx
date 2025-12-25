@@ -4,7 +4,7 @@ import { Standings } from '../../feat-tournament/Standings';
 import { MetaChart } from '../../feat-tournament/MetaChart';
 import { useTournamentStats } from '../../feat-tournament/useTournamentStats';
 import { MetaList } from '../../feat-tournament/MetaList';
-import { usePageTitle } from '../../helper-page/usePageTitle';
+import { usePageTitle } from '../../feat-navigation/usePageTitle';
 import { H1, H2 } from '../../common-ui/Headings';
 import { supabase } from '../../helper-api/supabase';
 import type { Tournament } from '../../domain-models/tournament';

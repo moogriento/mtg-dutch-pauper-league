@@ -1,7 +1,7 @@
 import { Link, type LoaderFunctionArgs, useLoaderData } from 'react-router';
 import { useGetCards } from '../../feat-deck-view/useGetCards';
 import { CardList } from '../../feat-deck-view/CardList';
-import { usePageTitle } from '../../helper-page/usePageTitle';
+import { usePageTitle } from '../../feat-navigation/usePageTitle';
 import { H1 } from '../../common-ui/Headings';
 import { supabase } from '../../helper-api/supabase';
 import type { DeckDetails } from '../../domain-models/deck';
