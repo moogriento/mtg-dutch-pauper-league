@@ -117,8 +117,7 @@ export function SearchResults() {
           <span className="text-sm">0 decks found where:</span>
         ) : (
           <span className="text-sm">
-            {start} - {end} of {totalResults} decks sorted by tournament
-            position where:
+            {start} - {end} of {totalResults} decks sorted by most recent where:
           </span>
         )}
         <AppliedFilters filters={filters} />
