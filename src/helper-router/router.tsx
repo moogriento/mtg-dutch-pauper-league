@@ -3,7 +3,6 @@ import { OverviewPage } from '../pages/overview/Overview';
 import { RootLayout } from './RootLayout';
 import { RouteError } from './RouteError';
 import { Page404 } from './Page404';
-import { Example } from './Example';
 
 export const router = createBrowserRouter(
   [
@@ -52,10 +51,6 @@ export const router = createBrowserRouter(
                 })),
             },
           ],
-        },
-        {
-          path: '/example',
-          element: <Example />,
         },
         {
           path: '*',

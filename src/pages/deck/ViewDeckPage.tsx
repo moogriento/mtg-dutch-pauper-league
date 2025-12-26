@@ -6,6 +6,9 @@ import { H1 } from '../../common-ui/Headings';
 import { supabase } from '../../helper-api/supabase';
 import type { DeckDetails } from '../../domain-models/deck';
 import { CardListSkeleton } from '../../feat-deck-view/CardListSkeleton';
+import { useState } from 'react';
+import { CardListImages } from '../../feat-deck-view/CardListImages';
+import { CardListImagesSkeleton } from '../../feat-deck-view/CardListImagesSkeleton';
 
 export async function viewDeckLoader({ params }: LoaderFunctionArgs) {
   const { tournamentId, deckId } = params;
@@ -45,10 +48,21 @@ export async function viewDeckLoader({ params }: LoaderFunctionArgs) {
   return { deck: data as DeckDetails };
 }
 
+type ViewAs = 'list' | 'images';
+
 export function ViewDeckPage() {
+  const currentViewAs = (localStorage.getItem('viewAs') ?? 'list') as ViewAs;
   const { deck } = useLoaderData<{ deck: DeckDetails }>();
   usePageTitle(`Deck details - ${deck.id}`);
   const { data: viewableCards, isLoading } = useGetCards(deck);
+  const [viewAs, setViewAs] = useState<ViewAs>(currentViewAs);
+
+  const handleView = () => {
+    const newViewAS = viewAs === 'list' ? 'images' : 'list';
+
+    localStorage.setItem('viewAs', newViewAS);
+    setViewAs(newViewAS);
+  };
 
   return (
     <div className="mt-8">
@@ -106,7 +120,7 @@ export function ViewDeckPage() {
       </div>
       <H1 className="mb-4">Deck Details</H1>
 
-      <dl className="grid grid-cols-1 sm:grid-cols-[max-content_1fr] gap-x-6 gap-y-2 mb-8 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4">
+      <dl className="grid grid-cols-1 sm:grid-cols-[max-content_1fr] gap-x-6 gap-y-2 mb-4 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4">
         <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">
           Tournament
         </dt>
@@ -143,10 +157,24 @@ export function ViewDeckPage() {
         </dd>
       </dl>
 
+      <div className="flex justify-end mb-2">
+        <button
+          className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
+          onClick={handleView}
+        >
+          {viewAs === 'list' ? 'View as images' : 'View as text'}
+        </button>
+      </div>
+
       <div className="mb-4">
-        {isLoading && <CardListSkeleton />}
-        {!isLoading && viewableCards && (
+        {viewAs === 'list' && isLoading && <CardListSkeleton />}
+        {viewAs === 'list' && !isLoading && viewableCards && (
           <CardList viewableDeck={viewableCards} />
+        )}
+
+        {viewAs === 'images' && isLoading && <CardListImagesSkeleton />}
+        {viewAs === 'images' && !isLoading && viewableCards && (
+          <CardListImages viewableDeck={viewableCards} />
         )}
       </div>
     </div>
