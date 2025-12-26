@@ -1,29 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/loader.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=BBH+Bogle&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Oldenburg&display=swap"
-      rel="stylesheet"
-    />
-    <title>MTG dutch pauper league stats</title>
-  </head>
-  <body>
-    <div id="root">
-      <div class="loader">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </div>
-    <script type="module" src="/src/main.tsx"></script>
+    <meta charset="utf-8" />
+    <title>Redirecting...</title>
     <script>
-      sessionStorage.redirect = location.href;
+      // Store the path in sessionStorage and redirect to index.html
+      sessionStorage.setItem(
+        'redirect',
+        location.pathname + location.search + location.hash
+      );
+      location.replace(
+        location.origin +
+          location.pathname.split('/').slice(0, -1).join('/') +
+          '/'
+      );
     </script>
-  </body>
+  </head>
+  <body></body>
 </html>
