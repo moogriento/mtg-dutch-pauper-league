@@ -1,7 +1,37 @@
+<!-- Github pages workaround -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta http-equiv="refresh" content="0; url=./" />
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/loader.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=BBH+Bogle&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Oldenburg&display=swap"
+      rel="stylesheet"
+    />
+    <title>MTG dutch pauper league stats</title>
+    <script>
+      var redirect = sessionStorage.redirect;
+      delete sessionStorage.redirect;
+      if (redirect && redirect !== location.href) {
+        history.replaceState(null, null, redirect);
+      }
+    </script>
   </head>
-  <body></body>
+  <body>
+    <div id="root">
+      <div class="loader">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    <script>
+      sessionStorage.redirect = location.href;
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
