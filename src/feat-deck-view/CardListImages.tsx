@@ -7,11 +7,16 @@ function CardImage({ card }: { card: EnrichedCard }) {
 
   if (!isDualSide) {
     return (
-      <img
-        className="mx-auto w-full max-w-[300px] sm:max-w-[250px]"
-        src={card.cardData.image_uris?.normal}
-        alt={card.name}
-      />
+      <div className="relative">
+        <img
+          className="mx-auto w-full max-w-[300px] sm:max-w-[250px]"
+          src={card.cardData.image_uris?.normal}
+          alt={card.name}
+        />
+        <div className="absolute left-1/2 -translate-x-1/2 bottom-2 border bg-black/70 text-sm px-2 py-1 font-medium text-white">
+          {card.count}x
+        </div>
+      </div>
     );
   }
 
@@ -54,6 +59,10 @@ function CardImage({ card }: { card: EnrichedCard }) {
                      [transform:rotateY(180deg)]
                      [backface-visibility:hidden]"
         />
+      </div>
+
+      <div className="absolute left-1/2 -translate-x-1/2 bottom-2 border bg-black/70 text-sm px-2 py-1 font-medium text-white">
+        {card.count}x
       </div>
     </div>
   );
