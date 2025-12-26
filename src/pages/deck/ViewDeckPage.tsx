@@ -53,11 +53,11 @@ export function ViewDeckPage() {
   return (
     <div className="mt-8">
       <div className="mb-4">
-        <nav className="text-sm md:flex">
+        <nav className="text-sm text-gray-600 dark:text-gray-400 md:flex">
           <div className="hidden md:block mr-8">
             <Link
               to={-1 as any}
-              className="inline-flex items-center gap-1 text-text-secondary hover:text-text-primary"
+              className="inline-flex items-center gap-1 hover:underline"
             >
               ← Back
             </Link>
@@ -66,7 +66,7 @@ export function ViewDeckPage() {
           <div className="sm:hidden">
             <Link
               to={`/tournament/${deck.tournament_id}`}
-              className="inline-flex items-center gap-1 text-text-secondary hover:text-text-primary"
+              className="inline-flex items-center gap-1 hover:underline"
             >
               ← {deck.tournament_name}
             </Link>
@@ -76,22 +76,22 @@ export function ViewDeckPage() {
             <li className="flex items-center gap-1">
               <Link
                 to="/"
-                className="hover:text-text-primary transition-colors"
+                className="hover:text-text-primary transition-colors hover:underline"
               >
                 Tournaments
               </Link>
-              <span className="hidden sm:inline">/</span>
+              <span className="hidden sm:inline">»</span>
             </li>
 
             <li className="flex items-center gap-1 min-w-0">
               <Link
                 to={`/tournament/${deck.tournament_id}`}
-                className="hover:text-text-primary transition-colors truncate max-w-[12rem] sm:max-w-none"
+                className="hover:text-text-primary transition-colors truncate max-w-[12rem] sm:max-w-none hover:underline"
                 title={deck.tournament_name}
               >
                 {deck.tournament_name}
               </Link>
-              <span className="hidden sm:inline">/</span>
+              <span className="hidden sm:inline">»</span>
             </li>
 
             <li
@@ -106,28 +106,44 @@ export function ViewDeckPage() {
       </div>
       <H1 className="mb-4">Deck Details</H1>
 
-      <dl className="grid grid-cols-1 sm:grid-cols-[max-content_1fr] gap-x-6 gap-y-1 mb-8">
-        <dt className="text-sm font-medium text-text-muted">Tournament</dt>
-        <dd className="text-sm text-text-primary">{deck.tournament_name}</dd>
+      <dl className="grid grid-cols-1 sm:grid-cols-[max-content_1fr] gap-x-6 gap-y-2 mb-8 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4">
+        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">
+          Tournament
+        </dt>
+        <dd className="text-sm text-gray-700 dark:text-gray-300">
+          {deck.tournament_name}
+        </dd>
 
-        <dt className="text-sm font-medium text-text-muted">Date</dt>
-        <dd className="text-sm text-text-primary">
+        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">
+          Date
+        </dt>
+        <dd className="text-sm text-gray-700 dark:text-gray-300">
           {new Date(deck.tournament_start_date).toLocaleDateString()}
         </dd>
 
-        <dt className="text-sm font-medium text-text-muted">Archetype</dt>
-        <dd className="text-sm text-text-primary">{deck.archetype}</dd>
+        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">
+          Archetype
+        </dt>
+        <dd className="text-sm text-gray-700 dark:text-gray-300">
+          {deck.archetype}
+        </dd>
 
-        <dt className="text-sm font-medium text-text-muted">Position</dt>
-        <dd className="text-sm text-text-primary">#{deck.position}</dd>
+        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">
+          Position
+        </dt>
+        <dd className="text-sm text-gray-700 dark:text-gray-300">
+          #{deck.position}
+        </dd>
 
-        <dt className="text-sm font-medium text-text-muted">Record</dt>
-        <dd className="text-sm text-text-primary">
+        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">
+          Record
+        </dt>
+        <dd className="text-sm text-gray-700 dark:text-gray-300">
           {deck.wins} wins - {deck.losses} losses - {deck.draws} draws
         </dd>
       </dl>
 
-      <div>
+      <div className="mb-4">
         {isLoading && <CardListSkeleton />}
         {!isLoading && viewableCards && (
           <CardList viewableDeck={viewableCards} />

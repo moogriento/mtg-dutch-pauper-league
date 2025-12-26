@@ -1,37 +1,34 @@
-import { Link } from 'react-router';
 import type { Tournament } from '../../domain-models/tournament';
 import { supabase } from '../../helper-api/supabase';
 import { useQuery } from '../../helper-query/useQuery';
 import { usePagination } from '../../helper-pagination/usePagination';
 import { H2 } from '../../common-ui/Headings';
 import { Pagination } from '../../common-ui/Pagination';
+import { TableSolid } from '../../common-ui/Tables';
+import { Link } from '../../common-ui/Link';
 
 function Skeleton() {
   return (
-    <table className="animate-pulse min-w-full border border-border rounded-lg overflow-hidden">
-      <thead className="bg-bg-secondary">
+    <TableSolid className="animate-pulse">
+      <TableSolid.Thead>
         <tr>
-          <th className="text-left px-4 py-2 border-b border-border font-medium">
-            Leg
-          </th>
-          <th className="text-left px-4 py-2 border-b border-border font-medium after:content-['↓'] after:ml-2 after:text-xs">
-            Date
-          </th>
+          <TableSolid.Th>Tournament</TableSolid.Th>
+          <TableSolid.Th>Played on</TableSolid.Th>
         </tr>
-      </thead>
-      <tbody>
+      </TableSolid.Thead>
+      <TableSolid.Tbody>
         {Array.from({ length: 5 }).map((_, index) => (
-          <tr key={index}>
-            <td className="px-4 py-2 border-b border-border">
-              <div className="h-5 w-80 rounded bg-border/60 dark:bg-border" />
-            </td>
-            <td className="px-4 py-2 border-b border-border">
-              <div className="h-5 w-32 rounded bg-border/60 dark:bg-border" />
-            </td>
-          </tr>
+          <TableSolid.Tr key={index}>
+            <TableSolid.Td>
+              <div className="h-5 w-80 rounded bg-gray-200 dark:bg-gray-700" />
+            </TableSolid.Td>
+            <TableSolid.Td>
+              <div className="h-5 w-32 rounded bg-gray-200 dark:bg-gray-700" />
+            </TableSolid.Td>
+          </TableSolid.Tr>
         ))}
-      </tbody>
-    </table>
+      </TableSolid.Tbody>
+    </TableSolid>
   );
 }
 
@@ -86,38 +83,28 @@ export function OverviewPage() {
 
         {isLoading && <Skeleton />}
         {!isLoading && (
-          <table className="min-w-full border border-border rounded-lg overflow-hidden">
-            <thead className="bg-bg-secondary">
+          <TableSolid>
+            <TableSolid.Thead>
               <tr>
-                <th className="text-left px-4 py-2 border-b border-border font-medium">
-                  Leg
-                </th>
-                <th className="text-left px-4 py-2 border-b border-border font-medium after:content-['↓'] after:ml-2 after:text-xs">
-                  Date
-                </th>
+                <TableSolid.Th>Tournament</TableSolid.Th>
+                <TableSolid.Th>Played on</TableSolid.Th>
               </tr>
-            </thead>
-            <tbody>
+            </TableSolid.Thead>
+            <TableSolid.Tbody>
               {items.map((tournament) => (
-                <tr
-                  key={tournament.id}
-                  className="hover:bg-bg-tertiary transition text-sm"
-                >
-                  <td className="px-4 py-2 border-b border-border">
-                    <Link
-                      className="hover:underline"
-                      to={`/tournament/${tournament.id}`}
-                    >
+                <TableSolid.Tr key={tournament.id}>
+                  <TableSolid.Td>
+                    <Link to={`/tournament/${tournament.id}`}>
                       {tournament.name}
                     </Link>
-                  </td>
-                  <td className="px-4 py-2 border-b border-border">
+                  </TableSolid.Td>
+                  <TableSolid.Td>
                     {new Date(tournament.created_at).toLocaleDateString()}
-                  </td>
-                </tr>
+                  </TableSolid.Td>
+                </TableSolid.Tr>
               ))}
-            </tbody>
-          </table>
+            </TableSolid.Tbody>
+          </TableSolid>
         )}
         {totalPages > 1 && (
           <Pagination

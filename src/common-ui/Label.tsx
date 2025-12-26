@@ -8,7 +8,7 @@ export function Label(
   return (
     <label
       className={clsx(
-        'block font-sans text-sm font-medium mb-2 text-text-secondary',
+        'block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1',
         className
       )}
       {...rest}

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { ArchetypeStats } from './useTournamentStats';
 import { usePagination } from '../helper-pagination/usePagination';
 import { TableSolid } from '../common-ui/Tables';
@@ -17,6 +17,10 @@ export function MetaList({
   const [sortKey, setSortKey] = useState<SortKey>('total');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
 
+  useEffect(() => {
+    setList(archetypes);
+  }, [archetypes]);
+
   const {
     items,
     currentPage,
@@ -26,7 +30,7 @@ export function MetaList({
     goToPage,
     hasNextPage,
     hasPrevPage,
-  } = usePagination({ list: archetypes, pageSize: 10 });
+  } = usePagination({ list, pageSize: 10 });
 
   const handleSort = (key: SortKey) => () => {
     let sortedList = [...list];
@@ -74,7 +78,7 @@ export function MetaList({
     <div>
       <div
         className={clsx({
-          'min-h-[408px]': totalPages > 1,
+          'min-h-[620px] md:min-h-[408px]': totalPages > 1,
         })}
       >
         <TableSolid>
@@ -106,34 +110,12 @@ export function MetaList({
           </TableSolid.Thead>
           <TableSolid.Tbody>
             {items.map((item) => {
-              const winRate = item.win_rate ?? 0;
-              const conversionRate = item.conversion_rate ?? 0;
-
               return (
                 <TableSolid.Tr key={item.archetype}>
-                  <TableSolid.Td className="text-text-primary">
-                    {item.archetype}
-                  </TableSolid.Td>
-                  <TableSolid.Td className="font-mono text-text-secondary">
-                    {item.total_decks}
-                  </TableSolid.Td>
-                  <TableSolid.Td
-                    className={clsx('font-mono font-semibold', {
-                      'text-success': winRate >= 51,
-                      'text-neutral': winRate >= 50 && winRate < 51,
-                      'text-error': winRate < 50,
-                    })}
-                  >
-                    {item.win_rate?.toFixed(1)}%
-                  </TableSolid.Td>
-                  <TableSolid.Td
-                    className={clsx('font-mono font-semibold', {
-                      'text-success': conversionRate >= 51,
-                      'text-neutral':
-                        conversionRate >= 50 && conversionRate < 51,
-                      'text-error': conversionRate < 50,
-                    })}
-                  >
+                  <TableSolid.Td>{item.archetype}</TableSolid.Td>
+                  <TableSolid.Td>{item.total_decks}</TableSolid.Td>
+                  <TableSolid.Td>{item.win_rate?.toFixed(1)}%</TableSolid.Td>
+                  <TableSolid.Td>
                     {item.conversion_rate?.toFixed(1)}%
                   </TableSolid.Td>
                 </TableSolid.Tr>

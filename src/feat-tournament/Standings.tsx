@@ -1,8 +1,8 @@
-import { Link } from 'react-router';
 import { supabase } from '../helper-api/supabase';
 import { useQuery } from '../helper-query/useQuery';
 import { H2 } from '../common-ui/Headings';
 import { TableClean } from '../common-ui/Tables';
+import { Link } from '../common-ui/Link';
 
 export function Standings({ tournamentId }: { tournamentId: string }) {
   const { data } = useQuery({
@@ -76,7 +76,6 @@ export function Standings({ tournamentId }: { tournamentId: string }) {
               </TableClean.Td>
               <TableClean.Td>
                 <Link
-                  className="underline"
                   to={`/tournament/${tournamentId}/deck/${standing.deck_id}`}
                 >
                   View deck

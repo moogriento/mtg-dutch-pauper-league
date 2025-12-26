@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 type Slice = {
   label: string;
   value: number;
@@ -11,6 +13,12 @@ export function PieChart({
   data: Slice[];
   size?: number;
 }) {
+  const [hovered, setHovered] = useState<{
+    index: number;
+    x: number;
+    y: number;
+  } | null>(null);
+
   const radius = size / 2;
   const center = radius;
   const total = data.reduce((s, d) => s + d.value, 0);
@@ -48,20 +56,53 @@ export function PieChart({
               Z
             `}
               fill={slice.color}
+              onMouseEnter={(e) =>
+                setHovered({
+                  index: i,
+                  x: e.clientX,
+                  y: e.clientY,
+                })
+              }
+              onMouseMove={(e) =>
+                setHovered(
+                  (prev) => prev && { ...prev, x: e.clientX, y: e.clientY }
+                )
+              }
+              onMouseLeave={() => setHovered(null)}
             />
           );
         })}
       </svg>
+
+      {/* Tooltip */}
+      {hovered !== null && (
+        <div
+          className="pointer-events-none fixed z-50 px-2 py-1 text-xs rounded shadow-lg bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 whitespace-nowrap"
+          style={{
+            top: hovered.y + 10,
+            left: hovered.x + 10,
+          }}
+        >
+          {data[hovered.index].label}:{' '}
+          {(data[hovered.index].value * 100).toFixed(1)}%
+        </div>
+      )}
+
       <div>
         {data.map((slice, i) => (
-          <div key={i} className="inline-flex items-center mr-4 text-sm">
+          <div key={i} className="inline-flex items-center gap-1 text-sm mr-4">
+            {/* Color dot */}
             <div
-              className="w-[14px] h-[14px] rounded-full inline-block mr-1"
+              className="w-3.5 h-3.5 rounded-full flex-shrink-0"
               style={{ background: slice.color }}
             />
-            {slice.label}:
-            <span className="ml-1 text-text-secondary">
-              {(slice.value * 100).toFixed(1)}%
+
+            {/* Label and value */}
+            <span className="whitespace-nowrap">
+              {slice.label}:
+              <span className="ml-1 text-gray-500 dark:text-gray-400">
+                {(slice.value * 100).toFixed(1)}%
+              </span>
             </span>
           </div>
         ))}

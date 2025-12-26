@@ -16,23 +16,24 @@ export function Pagination({
   onPrev,
 }: Props) {
   return (
-    <div className="flex justify-center items-center gap-2 mt-4">
+    <div className="mt-4 flex justify-center items-center gap-2 text-sm">
       <button
-        className="px-3 py-1 border border-border rounded hover:bg-bg-tertiary"
         onClick={onPrev}
         disabled={disablePrev}
+        className="px-3 py-1 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
       >
-        ‹ Prev
+        « Prev
       </button>
-      <span className="text-sm mx-4">
+
+      <span className="mx-4">
         Page {currentPage} of {totalPages}
       </span>
       <button
-        className="px-3 py-1 border border-border rounded hover:bg-bg-tertiary"
         onClick={onNext}
         disabled={disableNext}
+        className="px-3 py-1 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
       >
-        Next ›
+        Next »
       </button>
     </div>
   );

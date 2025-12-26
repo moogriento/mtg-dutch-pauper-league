@@ -7,7 +7,10 @@ export function H1(props: HeadingProps) {
   const { className, ...rest } = props;
 
   return (
-    <h1 className={`text-xl font-bold font-heading ${className}`} {...rest} />
+    <h1
+      className={`text-2xl font-normal text-gray-800 dark:text-gray-200 mb-2 ${className}`}
+      {...rest}
+    />
   );
 }
 
@@ -15,7 +18,10 @@ export function H2(props: HeadingProps) {
   const { className, ...rest } = props;
 
   return (
-    <h1 className={`text-lg font-bold font-heading ${className}`} {...rest} />
+    <h2
+      className={`text-xl, font-normal text-gray-800 dark:text-gray-200 mb-2 ${className}`}
+      {...rest}
+    />
   );
 }
 
@@ -23,6 +29,9 @@ export function H3(props: HeadingProps) {
   const { className, ...rest } = props;
 
   return (
-    <h1 className={`text-md font-bold font-heading ${className}`} {...rest} />
+    <h3
+      className={`text-lg font-normal text-gray-800 dark:text-gray-200 mb-2 ${className}`}
+      {...rest}
+    />
   );
 }

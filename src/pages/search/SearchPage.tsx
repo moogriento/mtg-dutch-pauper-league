@@ -79,89 +79,82 @@ export function SearchPage() {
         specific tournamen or within a range of dates, or by its archetype
       </p>
       <form onSubmit={handleSubmit}>
-        <div className="rounded-lg border p-6 bg-bg-primary border-border shadow-shadow-card">
-          <div className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="md:col-span-2">
-                <Label>Card Name</Label>
-                <ScryfallCardSearch onChange={setCardName} />
-              </div>
-
-              <div>
-                <Label>Minimum Count</Label>
-                <Input
-                  type="number"
-                  value={minCardCount}
-                  min="1"
-                  max="4"
-                  onChange={(e) => {
-                    setMinCardCount(e.target.value);
-                  }}
-                />
-              </div>
+        <div className="border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Card Name */}
+            <div>
+              <Label>Card Name</Label>
+              <ScryfallCardSearch onChange={setCardName} />
             </div>
 
-            {/* Tournament and Archetype Row */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="md:col-span-2">
-                <Label>Tournament</Label>
-                <Combobox
-                  items={tournaments ?? []}
-                  placeholder="Select tournament..."
-                  onChange={setTournament}
-                  itemKey="id"
-                  itemLabel="name"
-                />
-              </div>
+            {/* Quantity */}
+            <div>
+              <Label>Minimum Count</Label>
+              <Input
+                type="number"
+                value={minCardCount}
+                min="1"
+                max="4"
+                onChange={(e) => {
+                  setMinCardCount(e.target.value);
+                }}
+              />
             </div>
 
-            {/* Date Range Row */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <Label>From date</Label>
-                <Input
-                  type="date"
-                  value={fromDate}
-                  onChange={(e) => {
-                    setFromDate(e.target.value);
-                  }}
-                />
-              </div>
-
-              <div>
-                <Label>To date</Label>
-                <Input
-                  type="date"
-                  value={toDate}
-                  onChange={(e) => {
-                    setToDate(e.target.value);
-                  }}
-                />
-              </div>
+            {/* Tournament */}
+            <div>
+              <Label>Tournament</Label>
+              <Combobox
+                items={tournaments ?? []}
+                placeholder="Select tournament..."
+                onChange={setTournament}
+                itemKey="id"
+                itemLabel="name"
+              />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="md:col-span-2">
-                <Label>Deck archetype</Label>
-                <Combobox
-                  items={archetypes}
-                  placeholder="Select archetype..."
-                  onChange={setArchetype}
-                  itemKey="id"
-                  itemLabel="name"
-                />
-              </div>
+            {/* Archetype */}
+            <div>
+              <Label>Deck archetype</Label>
+              <Combobox
+                items={archetypes}
+                placeholder="Select archetype..."
+                onChange={setArchetype}
+                itemKey="id"
+                itemLabel="name"
+              />
             </div>
 
-            {/* Search Button */}
-            <div className="flex justify-end pt-2">
-              <button
-                type="submit"
-                className="flex items-center gap-2 px-6 py-3 rounded-lg font-sans font-medium transition-all bg-accent text-[#fff] hover:bg-accent-hover"
-              >
-                Search Decks
-              </button>
+            {/* Start Date */}
+            <div>
+              <Label>From date</Label>
+              <Input
+                type="date"
+                value={fromDate}
+                onChange={(e) => {
+                  setFromDate(e.target.value);
+                }}
+              />
             </div>
+
+            {/* End Date */}
+            <div>
+              <Label>To date</Label>
+              <Input
+                type="date"
+                value={toDate}
+                onChange={(e) => {
+                  setToDate(e.target.value);
+                }}
+              />
+            </div>
+          </div>
+
+          {/* Submit Button */}
+          <div className="mt-6">
+            <button className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm">
+              Search Decks
+            </button>
           </div>
         </div>
       </form>

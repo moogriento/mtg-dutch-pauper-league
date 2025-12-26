@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { useState, useRef, useEffect } from 'react';
+import { Input } from './Input';
 
 interface Props<T, K extends keyof T = keyof T, L extends keyof T = keyof T> {
   items: T[];
@@ -107,17 +108,8 @@ export function Combobox<
     <div className="relative w-full" ref={comboboxRef}>
       {/* Input with button */}
       <div className="relative">
-        <div
-          className={clsx(
-            'flex items-center rounded-lg border transition-all bg-bg-primary disabled:bg-bg-tertiary disabled:opacity-6 disabled:cursor-not-allowed',
-            {
-              'border-border': !isOpen,
-              'border-accent': isOpen,
-              'shadow-sm shadow-shadow': isOpen,
-            }
-          )}
-        >
-          <input
+        <div>
+          <Input
             ref={inputRef}
             type="text"
             value={searchQuery}
@@ -126,21 +118,22 @@ export function Combobox<
             onKeyDown={handleKeyDown}
             placeholder={placeholder}
             disabled={disabled}
-            className="w-full px-4 pr-10 py-2.5 font-sans rounded-lg focus:outline-none bg-transparent text-text-primary disabled:cursor-not-allowed"
           />
-          <button
-            onClick={() => !disabled && setIsOpen(!isOpen)}
-            disabled={disabled}
-            className="absolute right-2 p-1 rounded transition text-text-muted disabled:cursor-not-allowed hover:bg-bg-tertiary"
-          >
-            ▼
-          </button>
+          <span className="absolute right-0 p-2">▼</span>
         </div>
       </div>
 
       {/* Dropdown */}
       {isOpen && !disabled && (
-        <div className="absolute z-10 w-full mt-2 rounded-lg border overflow-hidden bg-bg-primary border-border shadow-shadow-card">
+        <div
+          className={clsx(
+            'absolute z-10 mt-2 w-full overflow-hidden border',
+            'bg-white dark:bg-gray-700',
+            'border-gray-300 dark:border-gray-600',
+            'text-gray-900 dark:text-gray-200',
+            'text-sm shadow-sm'
+          )}
+        >
           <ul className="max-h-60 overflow-y-auto py-1">
             {filteredItems.length > 0 ? (
               filteredItems.map((item, index) => (
@@ -148,10 +141,13 @@ export function Combobox<
                   key={String(item[itemKey])}
                   onClick={() => handleSelect(item)}
                   className={clsx(
-                    'px-4 py-2.5 font-sans cursor-pointer text-text-primary flex items-center justify-between transition-colors hover:bg-bg-tertiary',
+                    'px-4 py-2.5 cursor-pointer flex items-center justify-between',
+                    'transition-colors',
+                    'hover:bg-gray-100 dark:hover:bg-gray-600',
                     {
-                      'bg-bg-tertiary': highlightedIndex === index,
-                      'text-accent':
+                      'bg-gray-100 dark:bg-gray-600':
+                        highlightedIndex === index,
+                      'font-medium':
                         String(searchQuery) === String(item[itemKey]),
                     }
                   )}
@@ -161,7 +157,7 @@ export function Combobox<
                 </li>
               ))
             ) : (
-              <li className="px-4 py-2.5 font-sans text-text-muted">
+              <li className="px-4 py-2.5 text-gray-500 dark:text-gray-400">
                 No results found
               </li>
             )}

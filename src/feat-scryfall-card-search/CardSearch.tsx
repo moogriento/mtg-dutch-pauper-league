@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { fetchCardsByName } from '../helper-api/scryfall';
 import clsx from 'clsx';
 import { useDebounce } from '../helper-hooks/useDebounce';
+import { Input } from '../common-ui/Input';
 
 export function ScryfallCardSearch({
   onChange,
@@ -173,18 +174,9 @@ export function ScryfallCardSearch({
 
   return (
     <div className="relative w-full" ref={autocompleteRef}>
-      <div className="relative">
-        <div
-          className={clsx(
-            'flex items-center rounded-lg border transition-all bg-bg-primary disabled:bg-bg-tertiary disabled:opacity-6',
-            {
-              'border-border': !isOpen,
-              'border-accent': isOpen,
-              'shadow-hover-shadow': isOpen,
-            }
-          )}
-        >
-          <input
+      <div>
+        <div className="relative">
+          <Input
             ref={inputRef}
             type="text"
             value={value}
@@ -192,20 +184,21 @@ export function ScryfallCardSearch({
             onKeyDown={handleKeyDown}
             onFocus={() => value.length >= minChars && setIsOpen(true)}
             placeholder="e.g. Lightning Bolt"
-            className="w-full px-4 pr-20 py-2.5 font-sans rounded-lg focus:outline-none bg-transparent text-text-primary disabled:cursor-not-allowed"
           />
 
-          <div className="absolute right-2 flex items-center gap-1">
+          {/* Right-side icons */}
+          <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
             {isLoading && (
-              <div className="w-6 h-6 border-4 border-gray-200 border-t-border rounded-full animate-spin" />
+              <div className="w-5 h-5 border-2 border-gray-300 dark:border-gray-500 border-t-transparent rounded-full animate-spin" />
             )}
 
             {value && !isLoading && (
               <button
                 onClick={handleClear}
-                className="p-1 rounded transition text-text-muted hover:bg-bg-tertiary"
+                className="p-1 rounded transition-colors text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600"
+                aria-label="Clear"
               >
-                x
+                ×
               </button>
             )}
           </div>
@@ -213,15 +206,23 @@ export function ScryfallCardSearch({
 
         {/* Dropdown */}
         {isOpen && (
-          <div className="absolute z-10 w-full mt-2 rounded-lg border overflow-hidden bg-bg-primary border-border shadow-shadow-card">
+          <div
+            className={clsx(
+              'absolute z-10 mt-2 w-full overflow-hidden border shadow-sm',
+              'bg-white dark:bg-gray-700',
+              'border-gray-300 dark:border-gray-600',
+              'text-gray-900 dark:text-gray-200',
+              'text-sm'
+            )}
+          >
             {error && (
-              <div className="px-4 py-3 font-sans text-sm text-error">
+              <div className="px-4 py-3 text-sm text-red-600 dark:text-red-400">
                 {error}
               </div>
             )}
 
             {!isLoading && !hasResults && value.length >= minChars && (
-              <div className="px-4 py-3 font-sans text-sm text-text-muted">
+              <div className="px-4 py-3 text-sm text-gray-500 dark:text-gray-400">
                 No results found
               </div>
             )}
@@ -232,13 +233,13 @@ export function ScryfallCardSearch({
                   <li
                     key={suggestion}
                     onClick={() => handleSelect(suggestion)}
-                    onMouseEnter={() => {
-                      setHighlightedIndex(index);
-                    }}
+                    onMouseEnter={() => setHighlightedIndex(index)}
                     className={clsx(
-                      'px-4 py-2.5 font-sans cursor-pointer transition-colors text-text-primary hover:bg-bg-tertiary',
+                      'px-4 py-2.5 cursor-pointer transition-colors',
+                      'hover:bg-gray-100 dark:hover:bg-gray-600',
                       {
-                        'bg-bg-tertiary': highlightedIndex === index,
+                        'bg-gray-100 dark:bg-gray-600':
+                          highlightedIndex === index,
                       }
                     )}
                   >

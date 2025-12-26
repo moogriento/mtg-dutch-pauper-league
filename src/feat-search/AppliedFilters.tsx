@@ -42,9 +42,9 @@ export function AppliedFilters({ filters }: AppliedFiltersProps) {
       {entries.map(([key, value]) => (
         <span
           key={key}
-          className="inline-flex items-center gap-1 rounded-full border border-border bg-bg-tertiary px-3 py-1"
+          className="inline-flex items-center gap-1 rounded border border-gray-300 bg-gray-100 px-2 py-0.5 dark:border-gray-600 dark:bg-gray-800"
         >
-          <span className="text-text-primary">
+          <span className="text-gray-700 dark:text-gray-200">
             {labelForFilter(key, value)}
           </span>
         </span>

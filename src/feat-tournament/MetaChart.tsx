@@ -49,13 +49,17 @@ export function MetaChart({ archetypes, totalDecks, loading }: Props) {
 
   if (loading) {
     return (
-      <div className="animate-pulse">
-        <div className="mb-4 mx-auto rounded-full w-[250px] h-[250px] bg-border/60 dark:bg-border" />
-        <div>
+      <div className="animate-pulse space-y-4">
+        <div className="mx-auto w-[250px] h-[250px] rounded-full bg-gray-200 dark:bg-gray-700" />
+
+        <div className="space-y-2">
           {Array.from({ length: 5 }).map((_, index) => (
-            <div key={index} className="inline-flex items-center mr-4 text-sm">
-              <div className="w-[14px] h-[14px] rounded-full inline-block mr-1 bg-border/60 dark:bg-border" />
-              <div className="w-36 h-5 bg-border/60 dark:bg-border rounded" />
+            <div
+              key={index}
+              className="inline-flex items-center mr-4 text-sm gap-2"
+            >
+              <div className="w-3.5 h-3.5 rounded-full bg-gray-300 dark:bg-gray-600" />
+              <div className="w-36 h-5 rounded bg-gray-200 dark:bg-gray-700" />
             </div>
           ))}
         </div>

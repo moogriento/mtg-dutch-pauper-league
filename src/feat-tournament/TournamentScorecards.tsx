@@ -5,7 +5,7 @@ function Skeleton({ className }: { className?: string }) {
   return (
     <div
       className={clsx(
-        'animate-pulse h-9 w-10 rounded bg-border/60 dark:bg-border',
+        'animate-pulse h-9 w-10 rounded bg-gray-200 dark:bg-gray-700',
         className
       )}
     />
@@ -22,14 +22,18 @@ function StatCard({
   smallLabel?: boolean;
 }) {
   return (
-    <div className="bg-bg-secondary border border-border rounded-lg p-6">
-      <div className="text-sm text-text-secondary mb-2 font-medium">
+    <div className="border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4">
+      <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">
         {label}
       </div>
       <div
-        className={`text-accent font-semibold ${
-          smallLabel ? 'text-lg' : 'text-3xl'
-        }`}
+        className={clsx(
+          'text-2xl font-bold text-gray-800 dark:text-gray-200 min-h-[36px]',
+          {
+            'text-lg': smallLabel,
+            'text-3xl': !smallLabel,
+          }
+        )}
       >
         {value}
       </div>
@@ -45,7 +49,7 @@ export function TournamentScorecards({
   loading?: boolean;
 }) {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 my-8">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
       <StatCard
         label="Total decks"
         value={loading ? <Skeleton /> : stats.totalDecks}

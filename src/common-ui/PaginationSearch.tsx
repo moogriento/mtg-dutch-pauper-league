@@ -44,16 +44,16 @@ export function PaginationSearch({
 
   return (
     <nav
-      className="mt-6 flex items-center justify-between gap-2 text-sm"
+      className="mt-4 flex justify-center gap-2 text-sm"
       aria-label="Pagination"
     >
       {/* Previous */}
       <button
         onClick={() => onPageChange(page - 1)}
         disabled={page === 1}
-        className="rounded border border-border px-3 py-2 hover:bg-bg-tertiary disabled:opacity-50"
+        className="px-3 py-1 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 hover:underline"
       >
-        ← Prev
+        « Prev
       </button>
 
       {/* Page numbers (desktop only) */}
@@ -69,10 +69,10 @@ export function PaginationSearch({
               onClick={() => onPageChange(p)}
               aria-current={p === page ? 'page' : undefined}
               className={clsx(
-                'min-w-9 rounded border px-3 py-2',
+                'px-3 py-1 hover:underline',
                 p === page
-                  ? 'bg-accent text-white border-accent'
-                  : 'border-border hover:bg-bg-tertiary'
+                  ? 'bg-orange-500 text-white font-bold'
+                  : 'text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300'
               )}
             >
               {p}
@@ -85,9 +85,9 @@ export function PaginationSearch({
       <button
         onClick={() => onPageChange(page + 1)}
         disabled={page === totalPages}
-        className="rounded border border-border px-3 py-2 hover:bg-bg-tertiary disabled:opacity-50"
+        className="px-3 py-1 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 hover:underline"
       >
-        Next →
+        Next »
       </button>
     </nav>
   );

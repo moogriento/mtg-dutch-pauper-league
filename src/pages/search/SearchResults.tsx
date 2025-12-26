@@ -12,6 +12,7 @@ import type { Tournament } from '../../domain-models/tournament';
 import { AppliedFilters, type Filters } from '../../feat-search/AppliedFilters';
 import { getDisplayRange } from '../../helper-pagination/formatter';
 import { NoResults } from '../../feat-search/NoResults';
+import clsx from 'clsx';
 
 interface LoaderData {
   decks: DeckSearch[];
@@ -136,33 +137,43 @@ export function SearchResults() {
         {decks.map((deck) => (
           <li
             key={deck.id}
-            className="rounded-lg border border-border bg-bg-primary p-4 shadow-sm hover:shadow-md transition"
+            className={clsx(
+              'border p-4',
+              'bg-white dark:bg-gray-800',
+              'border-gray-200 dark:border-gray-700'
+            )}
           >
             <div className="mb-3 flex items-start justify-between gap-2">
               <div>
-                <h3 className="font-semibold text-text-primary">
+                <h3 className="font-semibold text-gray-900 dark:text-gray-100">
                   {deck.archetype}
                 </h3>
-                <p className="text-xs text-text-secondary">
+                <p className="text-xs text-gray-500 dark:text-gray-400">
                   {deck.tournament_name}
                 </p>
               </div>
 
-              <span className="rounded bg-bg-tertiary px-2 py-1 text-xs font-medium">
+              <span
+                className={clsx(
+                  'rounded px-2 py-1 text-xs font-medium',
+                  'bg-gray-100 dark:bg-gray-700',
+                  'text-gray-700 dark:text-gray-300'
+                )}
+              >
                 #{deck.standings_position}
               </span>
             </div>
 
-            <div className="grid grid-cols-2 gap-y-2 gap-x-4 text-sm">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
               <div>
-                <span className="text-text-secondary">Date</span>
+                <span className="text-gray-500 dark:text-gray-400">Date</span>
                 <div>
                   {new Date(deck.tournament_start_date).toLocaleDateString()}
                 </div>
               </div>
 
               <div>
-                <span className="text-text-secondary">Record</span>
+                <span className="text-gray-500 dark:text-gray-400">Record</span>
                 <div>
                   {deck.wins}-{deck.losses}-{deck.draws}
                 </div>
@@ -170,21 +181,25 @@ export function SearchResults() {
 
               {deck.card_count && (
                 <div>
-                  <span className="text-text-secondary">Cards</span>
+                  <span className="text-gray-500 dark:text-gray-400">
+                    Cards
+                  </span>
                   <div>{deck.card_count}</div>
                 </div>
               )}
 
               {deck.card_location !== 'none' && (
                 <div>
-                  <span className="text-text-secondary">Card found</span>
+                  <span className="text-gray-500 dark:text-gray-400">
+                    Card found
+                  </span>
                   <div className="capitalize">{deck.card_location}</div>
                 </div>
               )}
             </div>
 
             <div className="mt-4 flex items-center justify-between">
-              <span className="text-xs text-text-secondary">
+              <span className="text-xs text-gray-500 dark:text-gray-400">
                 {deck.card_location === 'mainboard' && 'Mainboard'}
                 {deck.card_location === 'sideboard' && 'Sideboard'}
                 {deck.card_location === 'both' && 'Main & Side'}
@@ -192,7 +207,7 @@ export function SearchResults() {
 
               <Link
                 to={`/tournament/${deck.tournament_id}/deck/${deck.id}`}
-                className="text-sm font-medium text-accent hover:underline"
+                className="text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline"
               >
                 View deck →
               </Link>

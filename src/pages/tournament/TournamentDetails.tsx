@@ -37,7 +37,9 @@ export function TournamentDetailsPage() {
   return (
     <div className="mt-8">
       <H1>{tournament.name}</H1>
-      <p>Played on: {new Date(tournament.start_date).toLocaleDateString()}</p>
+      <p className="mb-4 text-sm">
+        Played on: {new Date(tournament.start_date).toLocaleDateString()}
+      </p>
       <TournamentScorecards loading={isLoading} stats={data.stats} />
       <H2 className="mb-8">Metagame Overview</H2>
       <div className="mb-8">
