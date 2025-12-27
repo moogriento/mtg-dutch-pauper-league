@@ -1,6 +1,5 @@
 import { Outlet, ScrollRestoration, useNavigation } from 'react-router';
 import { Navbar } from '../feat-navigation/NavigationMenu';
-import { Footer } from '../feat-navigation/Footer';
 import { LoadingBar } from '../feat-navigation/LoadingBar';
 import { TopBar } from '../feat-navigation/TopBar';
 
@@ -16,7 +15,6 @@ export function RootLayout() {
         <ScrollRestoration />
         <Outlet />
       </main>
-      <Footer />
     </>
   );
 }

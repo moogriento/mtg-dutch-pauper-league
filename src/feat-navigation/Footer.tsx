@@ -14,7 +14,7 @@ export function Footer() {
         </nav>
 
         <div className="mt-3 text-center text-xs text-gray-500 dark:text-gray-400">
-          © {new Date().getFullYear()}{' '}
+          © {new Date().getFullYear()} built by moogriento
         </div>
       </div>
     </footer>
