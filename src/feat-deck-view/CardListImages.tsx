@@ -7,7 +7,7 @@ function CardImage({ card }: { card: EnrichedCard }) {
 
   if (!isDualSide) {
     return (
-      <div className="relative">
+      <div className="relative overflow-hidden rounded-xl">
         <img
           className="mx-auto w-full max-w-[300px] sm:max-w-[250px]"
           src={card.cardData.image_uris?.normal}
@@ -26,7 +26,7 @@ function CardImage({ card }: { card: EnrichedCard }) {
   const [flipped, setFlipped] = useState(false);
 
   return (
-    <div className="group relative mx-auto w-fit [perspective:1000px]">
+    <div className="group relative mx-auto w-fit [perspective:1000px] overflow-hidden rounded-xl">
       {/* Flip button */}
       <button
         onClick={() => setFlipped((v) => !v)}
