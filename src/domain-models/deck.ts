@@ -61,3 +61,12 @@ export interface DeckSearch extends Deck {
   card_location: 'mainboard' | 'sideboard' | 'both' | 'none';
   total_count: number;
 }
+
+export function isDualSide(card: EnrichedCard) {
+  const isDualSide =
+    (card.name.indexOf(' //') !== -1 && !card.cardData?.image_uris) ||
+    (card.cardData?.card_faces?.length > 0 &&
+      card.cardData?.card_faces?.[0].image_uris);
+
+  return isDualSide;
+}

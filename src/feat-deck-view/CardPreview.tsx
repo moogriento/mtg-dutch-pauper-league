@@ -1,4 +1,4 @@
-import type { EnrichedCard } from '../domain-models/deck';
+import { isDualSide, type EnrichedCard } from '../domain-models/deck';
 
 export function CardPreview({
   card,
@@ -13,15 +13,14 @@ export function CardPreview({
     window.innerHeight - 350 // card height
   );
 
-  const isDualSide =
-    card.name.indexOf(' //') !== -1 && !card.cardData?.image_uris;
+  const dualSide = isDualSide(card);
 
   return (
     <div
       className="fixed z-10 pointer-events-none min-h-[350px] overflow-hidden rounded-xl border"
       style={{ top, left }}
     >
-      {isDualSide ? (
+      {dualSide ? (
         <div className="flex ">
           <img
             className="md:w-[250px]"

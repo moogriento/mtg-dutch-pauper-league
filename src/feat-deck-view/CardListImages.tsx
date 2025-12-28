@@ -1,12 +1,15 @@
 import { useState } from 'react';
-import type { EnrichedCard, ViewableDeck } from '../domain-models/deck';
+import {
+  isDualSide,
+  type EnrichedCard,
+  type ViewableDeck,
+} from '../domain-models/deck';
 import clsx from 'clsx';
 import { NoImagePlaceholder } from './NoImagePlaceholder';
 
 function CardImage({ card }: { card: EnrichedCard }) {
   const hasScryfallData = !!card.cardData;
-  const isDualSide =
-    card.name.indexOf(' //') !== -1 && !card.cardData?.image_uris;
+  const dualSide = isDualSide(card);
 
   if (!hasScryfallData) {
     return (
@@ -17,7 +20,7 @@ function CardImage({ card }: { card: EnrichedCard }) {
     );
   }
 
-  if (!isDualSide) {
+  if (!dualSide) {
     return (
       <div className="relative overflow-hidden rounded-xl">
         <img
