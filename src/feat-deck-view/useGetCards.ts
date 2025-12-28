@@ -47,9 +47,7 @@ export function useGetCards(data: Deck) {
       Object.entries(deck.Mainboard).forEach(([cardName, entry]) => {
         const cardData = scryfallDict[cardName];
 
-        if (!cardData) return;
-
-        const typeLine = cardData.type_line.toLowerCase();
+        const typeLine = cardData?.type_line?.toLowerCase() ?? 'unknown';
 
         switch (true) {
           case typeLine.includes('land'):
@@ -88,7 +86,7 @@ export function useGetCards(data: Deck) {
           artifact: artifacts,
           planeswalker: planeswalkers,
           land: lands,
-          other: others,
+          other: others.sort((a, b) => a.name.localeCompare(b.name)),
         },
         sideboard: Object.entries(deck.Sideboard).map(([cardName, entry]) => ({
           ...entry,

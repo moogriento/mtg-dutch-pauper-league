@@ -115,7 +115,9 @@ export function CardList({ viewableDeck }: { viewableDeck: ViewableDeck }) {
 
   return (
     <div className="relative">
-      {preview && <CardPreview card={preview.card} rect={preview.rect} />}
+      {preview && preview.card.cardData && (
+        <CardPreview card={preview.card} rect={preview.rect} />
+      )}
 
       <div className="space-y-4">
         <Section

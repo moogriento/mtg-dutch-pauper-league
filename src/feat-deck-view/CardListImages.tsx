@@ -1,9 +1,20 @@
 import { useState } from 'react';
 import type { EnrichedCard, ViewableDeck } from '../domain-models/deck';
 import clsx from 'clsx';
+import { NoImagePlaceholder } from './NoImagePlaceholder';
 
 function CardImage({ card }: { card: EnrichedCard }) {
-  const isDualSide = card.cardData.card_faces?.length > 0;
+  const hasScryfallData = !!card.cardData;
+  const isDualSide = card.cardData?.card_faces?.length > 0;
+
+  if (!hasScryfallData) {
+    return (
+      <NoImagePlaceholder
+        card={card}
+        className="mx-auto w-full max-w-[300px] sm:max-w-[250px]"
+      />
+    );
+  }
 
   if (!isDualSide) {
     return (
