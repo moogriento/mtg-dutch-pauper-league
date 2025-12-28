@@ -10,6 +10,7 @@ export const archetypes = [
   { id: 'Dredge', name: 'Dredge' },
   { id: 'Elves', name: 'Elves' },
   { id: 'Familiars', name: 'Familiars' },
+  { id: 'Glintblade', name: 'Glintblade' },
   { id: 'Golgari Gardens', name: 'Golgari Gardens' },
   { id: 'Grixis Affinity', name: 'Grixis Affinity' },
   { id: 'Gruul Ponza', name: 'Gruul Ponza' },
@@ -24,5 +25,6 @@ export const archetypes = [
   { id: 'Mono-White Heroic', name: 'Mono-White Heroic' },
   { id: 'Spy Combo', name: 'Spy Combo' },
   { id: 'Tron', name: 'Tron' },
+  { id: 'Unknown', name: 'Unknown' },
   { id: 'Walls Combo', name: 'Walls Combo' },
 ];

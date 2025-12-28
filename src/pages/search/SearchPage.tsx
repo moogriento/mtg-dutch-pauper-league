@@ -75,8 +75,12 @@ export function SearchPage() {
       <H1>Search decks</H1>
       <p className="text-sm my-4">
         Search decks that have been registered in previous tournaments. You can
-        search decks that contain a specific card (or a quantity), used in a
-        specific tournamen or within a range of dates, or by its archetype
+        search decks that contain a specific card (or a minimum quantity); have
+        been used in a specific tournament or within a range of dates; or by its
+        archetype
+      </p>
+      <p className="italic text-sm mb-4">
+        Remember: The archetype algorithm might not be 100% accurate
       </p>
       <form onSubmit={handleSubmit}>
         <div className="border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-6">
@@ -93,6 +97,7 @@ export function SearchPage() {
               <Input
                 type="number"
                 value={minCardCount}
+                placeholder="1"
                 min="1"
                 max="4"
                 onChange={(e) => {
