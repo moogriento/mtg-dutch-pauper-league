@@ -1,4 +1,5 @@
 import { SwitchTheme } from '../feat-switch-theme/SwitchTheme';
+import { AppVersion } from './AppVersion';
 
 export function TopBar() {
   return (
@@ -9,6 +10,7 @@ export function TopBar() {
           {/* <div className="text-xs text-gray-600 dark:text-gray-400">
             English ▼
           </div> */}
+          <AppVersion className="hidden md:inline mr-2" />
           <SwitchTheme />
         </div>
       </div>

@@ -1,17 +1,10 @@
 import { useState } from 'react';
 import { NavLinks } from './NavLinks';
-import clsx from 'clsx';
+
 import { Link } from 'react-router';
 
 import pepeLogo from '../assets/pepe-logo.png';
-
-function Version({ className }: { className?: string }) {
-  return (
-    <span className={clsx('text-xs md:text-sm font-normal', className)}>
-      v0.0.2
-    </span>
-  );
-}
+import { AppVersion } from './AppVersion';
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
@@ -30,7 +23,6 @@ export function Navbar() {
                 </div>
               </div>
               <Link to="/">DPL meta</Link>
-              <Version className="hidden md:inline ml-2" />
             </div>
 
             {/* Desktop Menu */}
@@ -66,9 +58,7 @@ export function Navbar() {
         `}
       >
         <div className="flex items-center justify-between border-b border-gray-200 px-4 py-3">
-          <span className="font-bold text-text-primary">
-            DPL meta <Version className="ml-1" />
-          </span>
+          <span className="font-bold text-text-primary">DPL meta</span>
           <button onClick={() => setOpen(false)} aria-label="Close menu">
             ✕
           </button>
@@ -76,6 +66,9 @@ export function Navbar() {
 
         <div className="flex flex-col gap-4 px-4 py-6">
           <NavLinks onClick={() => setOpen(false)} />
+        </div>
+        <div className="absolute bottom-0 px-4 py-6">
+          <AppVersion className="ml-1" />
         </div>
       </aside>
     </>
