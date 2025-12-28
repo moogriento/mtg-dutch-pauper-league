@@ -5,7 +5,8 @@ import { NoImagePlaceholder } from './NoImagePlaceholder';
 
 function CardImage({ card }: { card: EnrichedCard }) {
   const hasScryfallData = !!card.cardData;
-  const isDualSide = card.cardData?.card_faces?.length > 0;
+  const isDualSide =
+    card.name.indexOf(' //') !== -1 && !card.cardData?.image_uris;
 
   if (!hasScryfallData) {
     return (
@@ -31,8 +32,8 @@ function CardImage({ card }: { card: EnrichedCard }) {
     );
   }
 
-  const front = card.cardData.card_faces[0].image_uris.normal;
-  const back = card.cardData.card_faces[1].image_uris.normal;
+  const front = card.cardData.card_faces[0].image_uris?.normal;
+  const back = card.cardData.card_faces[1].image_uris?.normal;
 
   const [flipped, setFlipped] = useState(false);
 

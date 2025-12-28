@@ -13,7 +13,8 @@ export function CardPreview({
     window.innerHeight - 350 // card height
   );
 
-  const isDualSide = card.cardData.card_faces?.length > 0;
+  const isDualSide =
+    card.name.indexOf(' //') !== -1 && !card.cardData?.image_uris;
 
   return (
     <div
