@@ -1,5 +1,4 @@
 import { createBrowserRouter } from 'react-router';
-import { OverviewPage } from '../pages/overview/Overview';
 import { RootLayout } from './RootLayout';
 import { RouteError } from './RouteError';
 import { Page404 } from './Page404';
@@ -15,7 +14,10 @@ export const router = createBrowserRouter(
           children: [
             {
               path: '/',
-              element: <OverviewPage />,
+              lazy: () =>
+                import('../pages/overview/Overview').then((module) => ({
+                  Component: module.OverviewPage,
+                })),
             },
             {
               path: 'tournament/:tournamentId',
