@@ -2,12 +2,14 @@ import { createBrowserRouter } from 'react-router';
 import { RootLayout } from './RootLayout';
 import { RouteError } from './RouteError';
 import { Page404 } from './Page404';
+import { InitialLoader } from './InitialLoader';
 
 export const router = createBrowserRouter(
   [
     {
       path: '/',
       element: <RootLayout />,
+      hydrateFallbackElement: <InitialLoader />,
       children: [
         {
           errorElement: <RouteError />,

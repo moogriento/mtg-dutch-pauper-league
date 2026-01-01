@@ -8,7 +8,7 @@
 .loader span {
   width: 10px;
   height: 10px;
-  background-color: #3b82f6; /* blue */
+  background-color: oklch(54.6% 0.245 262.881); /* blue */
   border-radius: 50%;
   animation: bounce 0.6s infinite alternate;
 }
