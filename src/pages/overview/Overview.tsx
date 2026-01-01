@@ -99,7 +99,7 @@ export function OverviewPage() {
                     </Link>
                   </TableSolid.Td>
                   <TableSolid.Td>
-                    {new Date(tournament.created_at).toLocaleDateString()}
+                    {new Date(tournament.start_date).toLocaleDateString()}
                   </TableSolid.Td>
                 </TableSolid.Tr>
               ))}
