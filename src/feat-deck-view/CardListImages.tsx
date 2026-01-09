@@ -45,7 +45,7 @@ function CardImage({ card }: { card: EnrichedCard }) {
       {/* Flip button */}
       <button
         onClick={() => setFlipped((v) => !v)}
-        className="opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity absolute right-2 top-2 z-10 rounded bg-black/70 px-2 py-1 text-xs text-white hover:bg-black"
+        className="md:opacity-0 md:pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity absolute right-2 top-12 md:top-2 z-10 rounded bg-black/70 px-2 py-1 text-md md:text-xs text-white hover:bg-black"
       >
         Flip card
       </button>
